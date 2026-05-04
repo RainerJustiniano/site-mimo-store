@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Mimo Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </header>
+    <div class="container">
+        <div class="form-section">
+            <h2 id="form-title">Adicionar Produto</h2>
+            <form id="produto-form">
+                <input type="hidden" id="produto-id">
+                <input type="text" id="marca" placeholder="Marca" required>
+                <input type="text" id="modelo" placeholder="Modelo" required>
+                <input type="text" id="armazenamento" placeholder="Armazenamento" required>
+                <input type="text" id="cor" placeholder="Cor" required>
+                <input type="number" step="0.01" id="preco" placeholder="Preço" required>
+                <select id="tipo" required>
+                    <option value="novo">Novo</option>
+                    <option value="semi-novo">Semi-novo</option>
+                </select>
+                <input type="text" id="bateria" placeholder="Bateria (%)" style="display: none;">
+                <input type="file" id="imagem-file" accept="image/*">
+                <input type="text" id="imagem-url" placeholder="Ou URL da Imagem" style="display: block;">
+                <select id="status">
+                    <option value="disponivel">Disponível</option>
+                    <option value="indisponivel">Indisponível</option>
+                </select>
+                <button type="submit" id="submit-btn">Adicionar</button>
+                <button type="button" id="cancel-btn" style="display: none;">Cancelar</button>
+            </form>
+        </div>
+        <div class="produtos-list">
+            <h2>Produtos</h2>
+            <div id="produtos"></div>
+        </div>
+    </div>
+    <script>
+        let editingId = null;
+
+        document.getElementById('tipo').addEventListener('change', function() {
+            const bateriaField = document.getElementById('bateria');
+            bateriaField.style.display = this.value === 'semi-novo' ? 'block' : 'none';
+            bateriaField.required = this.value === 'semi-novo';
+        });
+
+        async function loadProdutos() {
+            const response = await fetch('/produtos');
+            const produtos = await response.json();
+            const container = document.getElementById('produtos');
+            container.innerHTML = produtos.map(p => `
+                <div class="produto-item">
+                    <img src="${p.imagem}" alt="${p.modelo}" class="produto-img-small">
+                    <div class="produto-details">
+                        <h4>${p.marca} ${p.modelo}</h4>
+                        <p>R$ ${p.preco.toFixed(2)} - ${p.tipo}</p>
+                    </div>
+                    <div class="actions">
+                        <button onclick="editProduto(${p.id})">Editar</button>
+                        <button onclick="deleteProduto(${p.id})">Excluir</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('produto-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let imagemUrl = document.getElementById('imagem-url').value;
+            if (document.getElementById('imagem-file').files[0]) {
+                const formData = new FormData();
+                formData.append('file', document.getElementById('imagem-file').files[0]);
+                const uploadRes = await fetch('/upload', { method: 'POST', body: formData });
+                const uploadData = await uploadRes.json();
+                imagemUrl = uploadData.url;
+            }
+            const data = {
+                marca: document.getElementById('marca').value,
+                modelo: document.getElementById('modelo').value,
+                armazenamento: document.getElementById('armazenamento').value,
+                cor: document.getElementById('cor').value,
+                preco: parseFloat(document.getElementById('preco').value),
+                tipo: document.getElementById('tipo').value,
+                bateria: document.getElementById('bateria').value,
+                imagem: imagemUrl,
+                status: document.getElementById('status').value
+            };
+            const method = editingId ? 'PUT' : 'POST';
+            const url = editingId ? `/produtos/${editingId}` : '/produtos';
+            await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            resetForm();
+            loadProdutos();
+        });
+
+        function editProduto(id) {
+            fetch(`/produtos/${id}`)
+                .then(res => res.json())
+                .then(p => {
+                    document.getElementById('produto-id').value = p.id;
+                    document.getElementById('marca').value = p.marca;
+                    document.getElementById('modelo').value = p.modelo;
+                    document.getElementById('armazenamento').value = p.armazenamento;
+                    document.getElementById('cor').value = p.cor;
+                    document.getElementById('preco').value = p.preco;
+                    document.getElementById('tipo').value = p.tipo;
+                    document.getElementById('bateria').value = p.bateria;
+                    document.getElementById('imagem-url').value = p.imagem;
+                    document.getElementById('status').value = p.status;
+                    document.getElementById('form-title').textContent = 'Editar Produto';
+                    document.getElementById('submit-btn').textContent = 'Atualizar';
+                    document.getElementById('cancel-btn').style.display = 'inline';
+                    editingId = p.id;
+                    document.getElementById('tipo').dispatchEvent(new Event('change'));
+                });
+        }
+
+        function deleteProduto(id) {
+            if (confirm('Tem certeza que deseja excluir?')) {
+                fetch(`/produtos/${id}`, { method: 'DELETE' })
+                    .then(() => loadProdutos());
+            }
+        }
+
+        document.getElementById('cancel-btn').addEventListener('click', resetForm);
+
+        function resetForm() {
+            document.getElementById('produto-form').reset();
+            document.getElementById('produto-id').value = '';
+            document.getElementById('imagem-file').value = '';
+            document.getElementById('imagem-url').value = '';
+            document.getElementById('form-title').textContent = 'Adicionar Produto';
+            document.getElementById('submit-btn').textContent = 'Adicionar';
+            document.getElementById('cancel-btn').style.display = 'none';
+            editingId = null;
+            document.getElementById('bateria').style.display = 'none';
+        }
+
+        loadProdutos();
+    </script>
+</body>
+</html>

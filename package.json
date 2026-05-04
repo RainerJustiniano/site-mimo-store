@@ -1,0 +1,16 @@
+{
+  "name": "mimostore",
+  "version": "1.0.0",
+  "description": "Mimo Store — E-commerce de celulares com Vercel Postgres",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@vercel/postgres": "^0.8.0"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  }
+}

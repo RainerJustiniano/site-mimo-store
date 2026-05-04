@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimo Store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Mimo Store</h1>
+        <a href="{{ url_for('login') }}">Admin</a>
+    </header>
+    <div class="container">
+        <div id="produtos" class="produtos-grid"></div>
+    </div>
+    <script>
+        async function loadProdutos() {
+            const response = await fetch('/produtos');
+            const produtos = await response.json();
+            const container = document.getElementById('produtos');
+            container.innerHTML = produtos.map(p => `
+                <div class="produto-card">
+                    <img src="${p.imagem}" alt="${p.modelo}" class="produto-img">
+                    <div class="produto-info">
+                        <h3>${p.marca} ${p.modelo}</h3>
+                        <p><strong>Armazenamento:</strong> ${p.armazenamento}</p>
+                        <p><strong>Cor:</strong> ${p.cor}</p>
+                        <p><strong>Preço:</strong> R$ ${p.preco.toFixed(2)}</p>
+                        <p><strong>Tipo:</strong> ${p.tipo}</p>
+                        ${p.tipo === 'semi-novo' ? `<p><strong>Bateria:</strong> ${p.bateria}%</p>` : ''}
+                        <p><strong>Status:</strong> ${p.status}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        loadProdutos();
+    </script>
+</body>
+</html>
