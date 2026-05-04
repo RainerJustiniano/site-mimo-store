@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Mimo Store
 
 Uma loja profissional de produtos com backend Flask e frontend separado.
@@ -52,3 +53,6 @@ No admin, selecione um arquivo de imagem ou insira uma URL. As imagens carregada
 - Implementar upload de imagens.
 - Adicionar paginação para muitos produtos.
 - Melhorar segurança da autenticação (usar Flask-Login ou JWT).
+=======
+# site-mimo-store
+>>>>>>> 7150f246eefa37b59e48312317f5e34423d1de82
