@@ -300,6 +300,8 @@ function renderAll(){
 function renderHome(){
   const list = P.filter(x=>x.avail).sort(()=>Math.random()-.5).slice(0,8);
   document.getElementById('home-grid').innerHTML = list.map((p,i)=>cardHTML(p,i)).join('');
+  const xb = document.getElementById('banner-xiaomi-home');
+  if(xb && !xb.src) xb.src = XIAOMI_BANNER;
 }
 
 let ifFilter='Todos';
