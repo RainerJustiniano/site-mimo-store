@@ -4,32 +4,35 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const sql = neon(process.env.DATABASE_URL);
-  
+
   await sql`
-    CREATE TABLE IF NOT EXISTS produtos (
-      id SERIAL PRIMARY KEY,
-      dados JSONB NOT NULL,
-      criado_em TIMESTAMP DEFAULT NOW()
+    CREATE TABLE IF NOT EXISTS produtos_config (
+      id INTEGER DEFAULT 1 PRIMARY KEY,
+      lista JSONB NOT NULL DEFAULT '[]'
     )
   `;
-  
+
   if (req.method === 'GET') {
-    const rows = await sql`SELECT dados FROM produtos ORDER BY criado_em DESC`;
-    return res.json(rows.map(r => r.dados));
+    const rows = await sql`SELECT lista FROM produtos_config WHERE id = 1`;
+    return res.status(200).json(rows.length ? rows[0].lista : []);
   }
-  
+
   if (req.method === 'POST') {
     const { produtos } = req.body;
-    await sql`DELETE FROM produtos`;
-    for (const p of produtos) {
-      await sql`INSERT INTO produtos (dados) VALUES (${JSON.stringify(p)})`;
+    if (!Array.isArray(produtos)) {
+      return res.status(400).json({ error: 'Envie { produtos: [...] }' });
     }
-    return res.json({ ok: true });
+    const lista = JSON.stringify(produtos);
+    await sql`
+      INSERT INTO produtos_config (id, lista)
+      VALUES (1, ${lista}::jsonb)
+      ON CONFLICT (id) DO UPDATE SET lista = ${lista}::jsonb
+    `;
+    return res.status(200).json({ ok: true, total: produtos.length });
   }
-  
+
   res.status(405).end();
 }
