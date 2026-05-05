@@ -245,12 +245,9 @@ function cardHTML(p, idx){
   else if(p.cond==='Semi-novo') badges.push('<span class="badge-used">\uD83D\uDCF1 SEMI-NOVO</span>');
   if(p.cpo==='Sim') badges.push('<span class="badge-cpo">CPO</span>');
   if(p.anatel==='Sim') badges.push('<span class="badge-anatel">\uD83C\uDDE7\uD83C\uDDF7 ANATEL</span>');
-  // MOD 3: mostrar bateria para semi-novos sempre
+  // MOD 3: mostrar bateria para semi-novos - apenas emoji + %
   const batHTML = p.bat && (p.cond==='Semi-novo' || p.bat<100) ? `
-    <div class="prod-bat"><span>\uD83D\uDD0B Bateria</span>
-      <div class="bat-bar"><div class="bat-fill ${batCls(p.bat)}" style="width:${p.bat}%"></div></div>
-      <strong class="${batCls(p.bat)}" style="font-size:12px">${p.bat}%</strong>
-    </div>` : '';
+    <div class="prod-bat" style="font-size:13px;margin-top:6px;font-weight:700;color:var(--gray)">\uD83D\uDD0B ${p.bat}%</div>` : '';
   return `<div class="prod-card" onclick="openModal(${p.id})" style="animation-delay:${idx*0.04}s">
     <div class="prod-badge">${badges.join('')}</div>
     <div class="prod-img-wrap">${getImg(p)}</div>
