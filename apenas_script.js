@@ -728,7 +728,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   const saved = JSON.parse(localStorage.getItem('mimo_banners')||'{}');
   if(saved['semi-contra']) BANNER_SEMI_CONTRA = saved['semi-contra'];
   if(saved['novos-contra']) BANNER_NOVOS_CONTRA = saved['novos-contra'];
-  if(saved['xiaomi-banner']){ XIAOMI_BANNER = saved['xiaomi-banner']; const xb=document.getElementById('banner-xiaomi-home'); if(xb) xb.src=XIAOMI_BANNER; }
+  if(saved['xiaomi-banner']){ const xb=document.getElementById('banner-xiaomi-home'); if(xb) xb.src=saved['xiaomi-banner']; }
   if(saved['acess-banner']){ const ab=document.getElementById('banner-acess-home'); if(ab) ab.src=saved['acess-banner']; }
   if(saved['semi-capa']){ const img=document.getElementById('banner-semi'); if(img) img.src=saved['semi-capa']; }
   if(saved['novos-capa']){ const img=document.getElementById('banner-novos'); if(img) img.src=saved['novos-capa']; }
