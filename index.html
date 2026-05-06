@@ -709,25 +709,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.6);padding:32px 20px}
       </label>
     </div>
 
-    <!-- BANNER ACESSÓRIOS PÁGINA -->
-<div class="field"><label>🎧 BANNER ACESSÓRIOS (página acessórios)</label>
-  <label style="display:block;cursor:pointer;border:2px dashed var(--pink-pale);border-radius:12px;overflow:hidden">
-    <img id="prev-acess-pagina" src="" style="width:100%;max-height:120px;object-fit:contain;background:var(--pink-ultra)">
-    <input type="file" accept="image/webp,image/png,image/jpeg,image/*" style="display:none" onchange="swapBanner(this,'acess-pagina','acess-banner-img')">
-    <div style="text-align:center;padding:8px;font-size:12px;font-weight:700;color:var(--pink)">🔄 Trocar (WebP 1280x420px)</div>
-  </label>
-</div>
-
-<!-- BANNER ACESSÓRIOS PÁGINA -->
-<div class="field"><label>🎧 BANNER ACESSÓRIOS (página acessórios)</label>
-  <label style="display:block;cursor:pointer;border:2px dashed var(--pink-pale);border-radius:12px;overflow:hidden">
-    <img id="prev-acess-pagina" src="" style="width:100%;max-height:120px;object-fit:contain;background:var(--pink-ultra)">
-    <input type="file" accept="image/webp,image/png,image/jpeg,image/*" style="display:none" onchange="swapBanner(this,'acess-pagina','acess-banner-img')">
-    <div style="text-align:center;padding:8px;font-size:12px;font-weight:700;color:var(--pink)">🔄 Trocar (WebP 1280x420px)</div>
-  </label>
-</div>
-
-<!-- BANNER SEMI-NOVOS CAPA -->
+    <!-- BANNER SEMI-NOVOS CAPA -->
     <div class="field"><label>📱 BANNER SEMI-NOVOS (home)</label>
       <label style="display:block;cursor:pointer;border:2px dashed var(--pink-pale);border-radius:12px;overflow:hidden">
         <img id="prev-semi-capa" src="" style="width:100%;max-height:120px;object-fit:contain;background:var(--pink-ultra)">
@@ -1668,7 +1650,8 @@ window.addEventListener('DOMContentLoaded',()=>{
     if(saved['novos-contra']) BANNER_NOVOS_CONTRA=saved['novos-contra'];
     if(saved['xiaomi-banner']){ const xb=document.getElementById('banner-xiaomi-home'); if(xb){xb.src=saved['xiaomi-banner'];xb.dataset.neon='1';} }
     if(saved['xiaomi-page']){ XIAOMI_BANNER=saved['xiaomi-page']; document.querySelectorAll('#page-xiaomi img').forEach(el=>el.src=saved['xiaomi-page']); }
-    if(saved['acess-banner']){ const ab=document.getElementById('banner-acess-home'); if(ab){ab.src=saved['acess-banner'];ab.dataset.neon='1';} }
+    if(saved['acess-pagina']){ const ap=document.getElementById('acess-banner-img'); if(ap){ap.src=saved['acess-pagina'];ap.style.display='block';} const ph=document.getElementById('acess-banner-placeholder'); if(ph)ph.style.display='none'; }
+if(saved['acess-banner']){ const ab=document.getElementById('banner-acess-home'); if(ab){ab.src=saved['acess-banner'];ab.dataset.neon='1';} }
     // Atualizar previews no admin
     Object.entries(saved).forEach(([k,v])=>{ const el=document.getElementById('prev-'+k); if(el) el.src=v; });
     renderHome();
