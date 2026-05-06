@@ -300,11 +300,11 @@ function renderAll(){
 function renderHome(){
   const list = P.filter(x=>x.avail).sort(()=>Math.random()-.5).slice(0,8);
   document.getElementById('home-grid').innerHTML = list.map((p,i)=>cardHTML(p,i)).join('');
-  const savedB = JSON.parse(localStorage.getItem('mimo_banners')||'{}');
+  // S\u00F3 seta banner se Neon ainda n\u00E3o carregou (evita sobrescrever)
   const xb = document.getElementById('banner-xiaomi-home');
-  if(xb){ if(savedB['xiaomi-banner']) xb.src=savedB['xiaomi-banner']; else if(XIAOMI_BANNER&&XIAOMI_BANNER!=='IMG_REMOVIDA') xb.src=XIAOMI_BANNER; }
+  if(xb&&!xb.dataset.neon&&XIAOMI_BANNER&&XIAOMI_BANNER!=='IMG_REMOVIDA') xb.src=XIAOMI_BANNER;
   const ab = document.getElementById('banner-acess-home');
-  if(ab&&savedB['acess-banner']) ab.src=savedB['acess-banner'];
+  if(ab&&!ab.dataset.neon&&ab.src==='') ab.src='';
 }
 
 let ifFilter='Todos';
@@ -758,9 +758,9 @@ window.addEventListener('DOMContentLoaded',()=>{
     if(saved['novos-capa']){ const el=document.getElementById('banner-novos'); if(el) el.src=saved['novos-capa']; }
     if(saved['semi-contra']) BANNER_SEMI_CONTRA=saved['semi-contra'];
     if(saved['novos-contra']) BANNER_NOVOS_CONTRA=saved['novos-contra'];
-    if(saved['xiaomi-banner']){ const xb=document.getElementById('banner-xiaomi-home'); if(xb) xb.src=saved['xiaomi-banner']; }
+    if(saved['xiaomi-banner']){ const xb=document.getElementById('banner-xiaomi-home'); if(xb){xb.src=saved['xiaomi-banner'];xb.dataset.neon='1';} }
     if(saved['xiaomi-page']){ XIAOMI_BANNER=saved['xiaomi-page']; document.querySelectorAll('#page-xiaomi img').forEach(el=>el.src=saved['xiaomi-page']); }
-    if(saved['acess-banner']){ const ab=document.getElementById('banner-acess-home'); if(ab) ab.src=saved['acess-banner']; }
+    if(saved['acess-banner']){ const ab=document.getElementById('banner-acess-home'); if(ab){ab.src=saved['acess-banner'];ab.dataset.neon='1';} }
     // Atualizar previews no admin
     Object.entries(saved).forEach(([k,v])=>{ const el=document.getElementById('prev-'+k); if(el) el.src=v; });
     renderHome();
