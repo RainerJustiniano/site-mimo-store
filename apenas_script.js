@@ -732,6 +732,17 @@ window.addEventListener('DOMContentLoaded',()=>{
   if(saved['acess-banner']){ const ab=document.getElementById('banner-acess-home'); if(ab) ab.src=saved['acess-banner']; }
   if(saved['semi-capa']){ const img=document.getElementById('banner-semi'); if(img) img.src=saved['semi-capa']; }
   if(saved['novos-capa']){ const img=document.getElementById('banner-novos'); if(img) img.src=saved['novos-capa']; }
+  // Usar imagens do HTML como fallback para cards de produto
+  setTimeout(()=>{
+    if(!saved['xiaomi-banner']){
+      const xi=document.querySelector('#page-xiaomi img');
+      if(xi&&xi.src&&xi.src.startsWith('data:')) XIAOMI_BANNER=xi.src;
+    }
+    if(!saved['semi-capa']){
+      const ip=document.getElementById('banner-semi');
+      if(ip&&ip.src&&ip.src.startsWith('data:')) iPhone_BANNER=ip.src;
+    }
+  },500);
   // Preview admin
   Object.entries(saved).forEach(([k,v])=>{ const el=document.getElementById('prev-'+k); if(el) el.src=v; });
 });
