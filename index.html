@@ -350,7 +350,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.6);padding:32px 20px}
       <button class="nav-link" id="nav-acessorios" onclick="showPage('acessorios')">🎧 Acessórios</button>
       <button class="nav-link" id="nav-quem" onclick="showPage('quem')">Quem somos</button>
       <button class="nav-link" id="nav-carrinho" onclick="showPage('carrinho')">🛒 Carrinho</button>
-      <button class="nav-link" id="nav-contato" onclick="showPage('contato')">Contato</button><button onclick="closeMobileMenu();openAdminLogin()" style="color:var(--pink);font-weight:800">Admin</button>
+      <button class="nav-link" id="nav-contato" onclick="showPage('contato')">Contato</button>
       <button onclick="closeMobileMenu();openAdminLogin()" style="color:var(--pink);font-weight:800">⚙️ Admin</button>
       <a class="nav-link nav-whats" href="https://wa.me/5565996480119" target="_blank">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.563 4.14 1.542 5.874L0 24l6.278-1.645A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.376l-.36-.214-3.726.977.997-3.634-.235-.374A9.775 9.775 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
@@ -1566,6 +1566,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 
 
 
+
 <!-- ═══ EDIT PRODUCT MODAL ═══ -->
 <div id="edit-prod-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)">
   <div style="background:#fff;border-radius:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(233,30,140,.25)">
@@ -1653,7 +1654,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     <button class="mobile-nav-link" onclick="mobileNav('acessorios')">🎧 Acessórios</button>
     <button class="mobile-nav-link" onclick="mobileNav('carrinho')">🛒 Carrinho</button>
     <button class="mobile-nav-link" onclick="mobileNav('quem')">💗 Quem somos</button>
-    <button class="mobile-nav-link" onclick="mobileNav('contato')">📞 Contato</button>
+    <button class="mobile-nav-link" onclick="mobileNav('contato')">📞 Contato</button><button class="mobile-nav-link" onclick="closeMobileMenu();openAdminLogin()" style="color:var(--pink);font-weight:800">⚙️ Admin</button>
     <a href="https://wa.me/5565996480119" target="_blank" style="display:flex;align-items:center;gap:12px;margin-top:auto;background:#25d366;color:#fff;padding:14px 20px;border-radius:16px;font-weight:800;font-size:15px;text-decoration:none">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
       Falar no WhatsApp
