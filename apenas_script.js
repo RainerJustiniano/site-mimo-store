@@ -300,12 +300,11 @@ function renderAll(){
 function renderHome(){
   const list = P.filter(x=>x.avail).sort(()=>Math.random()-.5).slice(0,8);
   document.getElementById('home-grid').innerHTML = list.map((p,i)=>cardHTML(p,i)).join('');
+  const savedB = JSON.parse(localStorage.getItem('mimo_banners')||'{}');
   const xb = document.getElementById('banner-xiaomi-home');
-  if(xb){
-    const xSrc = document.querySelector('#page-xiaomi img');
-    if(xSrc && xSrc.src) xb.src = xSrc.src;
-    else xb.src = XIAOMI_BANNER;
-  }
+  if(xb){ if(savedB['xiaomi-banner']) xb.src=savedB['xiaomi-banner']; else if(XIAOMI_BANNER&&XIAOMI_BANNER!=='IMG_REMOVIDA') xb.src=XIAOMI_BANNER; }
+  const ab = document.getElementById('banner-acess-home');
+  if(ab&&savedB['acess-banner']) ab.src=savedB['acess-banner'];
 }
 
 let ifFilter='Todos';
@@ -463,29 +462,49 @@ function aTab(t,el){
 function swapBanner(input, key, liveId){
   const file=input.files[0]; if(!file) return;
   const reader=new FileReader();
-  reader.onload=e=>{
+  reader.onload=async e=>{
     const data=e.target.result;
-    document.getElementById('prev-'+key).src=data;
+    const prevEl=document.getElementById('prev-'+key);
+    if(prevEl) prevEl.src=data;
+    // Atualiza elemento ao vivo pelo liveId
     if(liveId){
       const liveEl=document.getElementById(liveId);
       if(liveEl) liveEl.src=data;
     }
-    if(key==='semi-capa'){ BANNER_SEMI_CAPA=data; }
+    // Atualiza\u00E7\u00F5es espec\u00EDficas por chave
+    if(key==='logo'){
+      document.querySelectorAll('.logo-img,.footer-logo,.admin-logo,.quem-logo').forEach(el=>el.src=data);
+    }
+    if(key==='hero-banner'){
+      const el=document.getElementById('hero-img');
+      if(el) el.src=data;
+    }
     if(key==='semi-contra'){ BANNER_SEMI_CONTRA=data;
       const bi=document.getElementById('iphone-banner-img');
-      if(bi && ifFilter!=='Novo') bi.src=data; }
-    if(key==='novos-capa'){ BANNER_NOVOS_CAPA=data; }
+      if(bi&&ifFilter!=='Novo') bi.src=data; }
     if(key==='novos-contra'){ BANNER_NOVOS_CONTRA=data;
       const bi=document.getElementById('iphone-banner-img');
-      if(bi && ifFilter==='Novo') bi.src=data; }
+      if(bi&&ifFilter==='Novo') bi.src=data; }
     if(key==='xiaomi-banner'){
-      const xb=document.getElementById('xiaomi-banner-img');
+      const xb=document.getElementById('banner-xiaomi-home');
       if(xb) xb.src=data;
     }
-    const banners=JSON.parse(localStorage.getItem('mimo_banners')||'{}');
-    banners[key]=data;
-    localStorage.setItem('mimo_banners',JSON.stringify(banners));
-    alert('\u2705 Banner atualizado com sucesso!');
+    if(key==='xiaomi-page'){
+      XIAOMI_BANNER=data;
+      document.querySelectorAll('#page-xiaomi img').forEach(el=>el.src=data);
+      renderXiaomi();
+    }
+    // Salvar no Neon
+    try {
+      await fetch('/api/banners',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({chave:key,imagem:data})
+      });
+      alert('\u2705 Imagem atualizada! Salva no banco permanentemente.');
+    } catch(e) {
+      alert('\u26A0\uFE0F Erro ao salvar no banco. Tente novamente.');
+    }
   };
   reader.readAsDataURL(file);
 }
@@ -722,28 +741,29 @@ function loadImgFile(input){
 
 // \u2550\u2550 INIT \u2550\u2550
 window.addEventListener('DOMContentLoaded',()=>{
+  // Fallback: ler imagens do HTML antes de renderizar
+  const xi=document.querySelector('#page-xiaomi img[src^="data:"]');
+  if(xi) XIAOMI_BANNER=xi.src;
+  const ip=document.getElementById('banner-semi');
+  if(ip&&ip.src&&ip.src.startsWith('data:')) iPhone_BANNER=ip.src;
+
   showPage('home');
   carregarDoBanco();
-  // Carregar banners salvos do localStorage
-  const saved = JSON.parse(localStorage.getItem('mimo_banners')||'{}');
-  if(saved['semi-contra']) BANNER_SEMI_CONTRA = saved['semi-contra'];
-  if(saved['novos-contra']) BANNER_NOVOS_CONTRA = saved['novos-contra'];
-  if(saved['xiaomi-banner']){ const xb=document.getElementById('banner-xiaomi-home'); if(xb) xb.src=saved['xiaomi-banner']; }
-  if(saved['acess-banner']){ const ab=document.getElementById('banner-acess-home'); if(ab) ab.src=saved['acess-banner']; }
-  if(saved['semi-capa']){ const img=document.getElementById('banner-semi'); if(img) img.src=saved['semi-capa']; }
-  if(saved['novos-capa']){ const img=document.getElementById('banner-novos'); if(img) img.src=saved['novos-capa']; }
-  // Usar imagens do HTML como fallback para cards de produto
-  setTimeout(()=>{
-    if(!saved['xiaomi-banner']){
-      const xi=document.querySelector('#page-xiaomi img');
-      if(xi&&xi.src&&xi.src.startsWith('data:')) XIAOMI_BANNER=xi.src;
-    }
-    if(!saved['semi-capa']){
-      const ip=document.getElementById('banner-semi');
-      if(ip&&ip.src&&ip.src.startsWith('data:')) iPhone_BANNER=ip.src;
-    }
-  },500);
-  // Preview admin
-  Object.entries(saved).forEach(([k,v])=>{ const el=document.getElementById('prev-'+k); if(el) el.src=v; });
+
+  // Carregar todas as imagens do Neon
+  fetch('/api/banners').then(r=>r.json()).then(saved=>{
+    if(saved['logo']) document.querySelectorAll('.logo-img,.footer-logo,.admin-logo,.quem-logo').forEach(el=>el.src=saved['logo']);
+    if(saved['hero-banner']){ const el=document.getElementById('hero-img'); if(el) el.src=saved['hero-banner']; }
+    if(saved['semi-capa']){ const el=document.getElementById('banner-semi'); if(el) el.src=saved['semi-capa']; }
+    if(saved['novos-capa']){ const el=document.getElementById('banner-novos'); if(el) el.src=saved['novos-capa']; }
+    if(saved['semi-contra']) BANNER_SEMI_CONTRA=saved['semi-contra'];
+    if(saved['novos-contra']) BANNER_NOVOS_CONTRA=saved['novos-contra'];
+    if(saved['xiaomi-banner']){ const xb=document.getElementById('banner-xiaomi-home'); if(xb) xb.src=saved['xiaomi-banner']; }
+    if(saved['xiaomi-page']){ XIAOMI_BANNER=saved['xiaomi-page']; document.querySelectorAll('#page-xiaomi img').forEach(el=>el.src=saved['xiaomi-page']); }
+    if(saved['acess-banner']){ const ab=document.getElementById('banner-acess-home'); if(ab) ab.src=saved['acess-banner']; }
+    // Atualizar previews no admin
+    Object.entries(saved).forEach(([k,v])=>{ const el=document.getElementById('prev-'+k); if(el) el.src=v; });
+    renderHome();
+  }).catch(()=>console.log('Banners: usando imagens do HTML'));
 });
 </script>
