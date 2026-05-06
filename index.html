@@ -55,7 +55,7 @@ nav{display:flex;gap:4px;flex-wrap:wrap}
 .trust-inner{max-width:1280px;margin:0 auto;padding:0 16px;display:flex;justify-content:center;align-items:center;gap:24px;flex-wrap:nowrap}
 .trust-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--dark);white-space:nowrap}
 .trust-item span.icon{font-size:16px}
-@media(max-width:600px){.trust-inner{gap:12px;padding:0 10px}.trust-item{font-size:10px;gap:4px}.trust-item span.icon{font-size:13px}}
+@media(max-width:600px){.trust-bar{overflow-x:auto}.trust-inner{gap:10px;padding:0 8px;justify-content:flex-start}.trust-item{font-size:10px;gap:4px}.trust-item span.icon{font-size:13px}}
 
 /* ─── CATEGORIES ─── */
 .cats-section{padding:32px 20px 0;max-width:1280px;margin:0 auto}
@@ -487,7 +487,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.6);padding:32px 20px}
   <div id="page-acessorios" style="display:none">
     <div class="page-wrap">
       <!-- Banner acessórios -->
-      <div class="banner-edit-wrap" style="position:relative;margin-bottom:24px">
+      <div class="banner-edit-wrap" style="position:relative;margin-bottom:24px;width:100vw;left:50%;margin-left:-50vw">
         <img id="acess-banner-img" src="" alt="Acessórios" style="width:100%;max-height:280px;object-fit:cover;border-radius:20px;display:none">
         <div id="acess-banner-placeholder" style="width:100%;height:180px;background:linear-gradient(135deg,var(--pink),#c4158c);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:8px">
           <div style="text-align:center;color:#fff">
