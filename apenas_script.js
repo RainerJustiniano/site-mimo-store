@@ -213,8 +213,8 @@ function showPage(p){
 }
 
 // \u2550\u2550 PRODUCT IMAGE HELPER \u2550\u2550
-const iPhone_BANNER = "IMG_REMOVIDA";
-const XIAOMI_BANNER = "IMG_REMOVIDA";
+let iPhone_BANNER = "IMG_REMOVIDA";
+let XIAOMI_BANNER = "IMG_REMOVIDA";
 
 function getImg(p){
   if(p.img && p.img.length > 10){
@@ -301,7 +301,11 @@ function renderHome(){
   const list = P.filter(x=>x.avail).sort(()=>Math.random()-.5).slice(0,8);
   document.getElementById('home-grid').innerHTML = list.map((p,i)=>cardHTML(p,i)).join('');
   const xb = document.getElementById('banner-xiaomi-home');
-  if(xb && !xb.src) xb.src = XIAOMI_BANNER;
+  if(xb){
+    const xSrc = document.querySelector('#page-xiaomi img');
+    if(xSrc && xSrc.src) xb.src = xSrc.src;
+    else xb.src = XIAOMI_BANNER;
+  }
 }
 
 let ifFilter='Todos';
@@ -324,8 +328,8 @@ function setIFilter(v,el){
   renderIphone();
 }
 
-const BANNER_SEMI_CONTRA = "IMG_REMOVIDA";
-const BANNER_NOVOS_CONTRA = "IMG_REMOVIDA";
+let BANNER_SEMI_CONTRA = "IMG_REMOVIDA";
+let BANNER_NOVOS_CONTRA = "IMG_REMOVIDA";
 
 function renderXiaomi(){
   const list=P.filter(x=>x.avail&&x.marca!=='Apple'&&x.marca!=='Acess\u00F3rio');
@@ -466,12 +470,12 @@ function swapBanner(input, key, liveId){
       const liveEl=document.getElementById(liveId);
       if(liveEl) liveEl.src=data;
     }
-    if(key==='semi-capa'){ window.BANNER_SEMI_CAPA=data; }
-    if(key==='semi-contra'){ window.BANNER_SEMI_CONTRA=data;
+    if(key==='semi-capa'){ BANNER_SEMI_CAPA=data; }
+    if(key==='semi-contra'){ BANNER_SEMI_CONTRA=data;
       const bi=document.getElementById('iphone-banner-img');
       if(bi && ifFilter!=='Novo') bi.src=data; }
-    if(key==='novos-capa'){ window.BANNER_NOVOS_CAPA=data; }
-    if(key==='novos-contra'){ window.BANNER_NOVOS_CONTRA=data;
+    if(key==='novos-capa'){ BANNER_NOVOS_CAPA=data; }
+    if(key==='novos-contra'){ BANNER_NOVOS_CONTRA=data;
       const bi=document.getElementById('iphone-banner-img');
       if(bi && ifFilter==='Novo') bi.src=data; }
     if(key==='xiaomi-banner'){
@@ -720,5 +724,15 @@ function loadImgFile(input){
 window.addEventListener('DOMContentLoaded',()=>{
   showPage('home');
   carregarDoBanco();
+  // Carregar banners salvos do localStorage
+  const saved = JSON.parse(localStorage.getItem('mimo_banners')||'{}');
+  if(saved['semi-contra']) BANNER_SEMI_CONTRA = saved['semi-contra'];
+  if(saved['novos-contra']) BANNER_NOVOS_CONTRA = saved['novos-contra'];
+  if(saved['xiaomi-banner']){ XIAOMI_BANNER = saved['xiaomi-banner']; const xb=document.getElementById('banner-xiaomi-home'); if(xb) xb.src=XIAOMI_BANNER; }
+  if(saved['acess-banner']){ const ab=document.getElementById('banner-acess-home'); if(ab) ab.src=saved['acess-banner']; }
+  if(saved['semi-capa']){ const img=document.getElementById('banner-semi'); if(img) img.src=saved['semi-capa']; }
+  if(saved['novos-capa']){ const img=document.getElementById('banner-novos'); if(img) img.src=saved['novos-capa']; }
+  // Preview admin
+  Object.entries(saved).forEach(([k,v])=>{ const el=document.getElementById('prev-'+k); if(el) el.src=v; });
 });
 </script>
