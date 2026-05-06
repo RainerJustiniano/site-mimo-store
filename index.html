@@ -51,10 +51,11 @@ nav{display:flex;gap:4px;flex-wrap:wrap}
 .btn-outline:hover{background:rgba(255,255,255,.15)}
 
 /* ─── TRUST BAR ─── */
-.trust-bar{background:var(--pink-ultra);border-top:1px solid var(--pink-pale);border-bottom:1px solid var(--pink-pale);padding:16px 0}
-.trust-inner{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
-.trust-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--dark)}
-.trust-item span.icon{font-size:20px}
+.trust-bar{background:var(--pink-ultra);border-top:1px solid var(--pink-pale);border-bottom:1px solid var(--pink-pale);padding:10px 0;overflow:hidden}
+.trust-inner{max-width:1280px;margin:0 auto;padding:0 16px;display:flex;justify-content:center;align-items:center;gap:24px;flex-wrap:nowrap}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--dark);white-space:nowrap}
+.trust-item span.icon{font-size:16px}
+@media(max-width:600px){.trust-inner{gap:12px;padding:0 10px}.trust-item{font-size:10px;gap:4px}.trust-item span.icon{font-size:13px}}
 
 /* ─── CATEGORIES ─── */
 .cats-section{padding:32px 20px 0;max-width:1280px;margin:0 auto}
