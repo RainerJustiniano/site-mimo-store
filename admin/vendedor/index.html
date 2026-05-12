@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Vendedor â€” Mimo Store</title>
+<title>Vendedor &#8212; Mimo Store</title>
 <meta name="robots" content="noindex,nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -28,7 +28,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dk);fo
 #ls{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1rem;background:linear-gradient(135deg,#fdf2f8,#fff7fb)}
 .lc{background:var(--sf);border-radius:20px;box-shadow:var(--sh),0 0 0 1px var(--bd);padding:2rem 1.75rem;width:100%;max-width:380px}
 .ll{text-align:center;margin-bottom:1.5rem}
-.ll img{height:60px;object-fit:contain;margin-bottom:.5rem}
+.ll .logo-wrap{height:64px;display:flex;align-items:center;justify-content:center;margin-bottom:.5rem}
+.ll .logo-wrap img{max-height:64px;max-width:180px;object-fit:contain}
 .ll .fl{font-size:36px;margin-bottom:.4rem}
 .ll .br{font-family:'Playfair Display',serif;font-size:22px}.ll .br span{color:var(--pk)}
 .ll .sb{font-size:12px;color:var(--mu);margin-top:3px}
@@ -44,7 +45,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dk);fo
 #app{display:none;min-height:100vh;flex-direction:column}
 .topbar{background:var(--sf);border-bottom:1px solid var(--bd);padding:.6rem 1rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(190,24,93,.05)}
 .tb-brand{display:flex;align-items:center;gap:.5rem}
-.tb-brand img{height:36px;object-fit:contain}
+.tb-brand .logo-img{height:36px;max-width:120px;object-fit:contain}
 .bn{font-family:'Playfair Display',serif;font-size:16px}.bn span{color:var(--pk)}
 .tg{font-size:10px;background:var(--blush);color:var(--pk);border:1px solid var(--bd);border-radius:99px;padding:2px 8px;font-weight:600;margin-left:4px}
 .tb-r{display:flex;gap:8px;align-items:center}
@@ -54,16 +55,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dk);fo
 .tabs::-webkit-scrollbar{display:none}
 .tb{flex-shrink:0;padding:10px 16px;font-size:13px;font-weight:500;color:var(--mu);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
 .tb.active{color:var(--pk);border-bottom-color:var(--pk);font-weight:600}
-.main{padding:.75rem 1rem;max-width:1500px;margin:0 auto;width:100%;flex:1}
+.main{padding:.75rem 1rem;max-width:1600px;margin:0 auto;width:100%;flex:1}
 
 /* STATUS */
-.status-box{background:var(--blush);border:1px solid var(--bd);border-radius:var(--rads);padding:.6rem 1rem;margin-bottom:.6rem;font-size:12px;display:flex;align-items:center;gap:8px}
+.status-box{border-radius:var(--rads);padding:.6rem 1rem;margin-bottom:.6rem;font-size:12px;display:flex;align-items:center;gap:8px;border:1px solid var(--bd);background:var(--blush);color:var(--mu)}
 .spin{display:inline-block;width:16px;height:16px;border:2px solid var(--bd);border-top-color:var(--pk);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* CONTROLS */
 input,select{font-size:13px;padding:5px 9px;border-radius:var(--rads);border:1.5px solid var(--bd);background:var(--sf);color:var(--dk);height:32px;outline:none;font-family:inherit;transition:border-color .15s}
 input:focus,select:focus{border-color:var(--pk)}
+input[type=number]{width:85px}
+.ctrl{background:var(--blush);border-radius:var(--rads);border:1px solid var(--bd);padding:.5rem .9rem;margin-bottom:.6rem;display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--mu)}
+.ctrl label{white-space:nowrap;font-weight:600}
 .frow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.55rem;align-items:center}
 .sinp{flex:1;min-width:180px}
 .frow select{font-size:12px;height:30px;background:var(--blush)}
@@ -96,7 +100,7 @@ tr:hover td{background:var(--blush)}
 .btn-sm{font-size:11px;padding:3px 8px}
 .brow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:.6rem}
 
-/* SIMULAÃ‡ÃƒO */
+/* SIMULACAO */
 .sim-box{position:relative;margin-bottom:.6rem}
 .sim-box input{width:100%;font-size:14px;height:38px;padding:0 12px;border:1.5px solid var(--bd);border-radius:var(--rads);background:var(--sf);color:var(--dk);font-family:inherit;outline:none}
 .sim-box input:focus{border-color:var(--pk)}
@@ -116,8 +120,8 @@ tr:hover td{background:var(--blush)}
 .cmp-wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:var(--rad);background:var(--sf);box-shadow:var(--sh)}
 .ct2{width:100%;border-collapse:collapse;font-size:13px}
 .ct2 th{padding:10px 14px;font-weight:600;font-size:11px;color:var(--mu);border-bottom:1px solid var(--bd);background:var(--blush);text-align:left}
-.ct2 th.cm{text-align:center;min-width:170px}
-.ct2 td{padding:9px 14px;border-bottom:1px solid var(--bd);vertical-align:middle}
+.ct2 th.cm{text-align:center;min-width:160px}
+.ct2 td{padding:8px 14px;border-bottom:1px solid var(--bd);vertical-align:middle}
 .ct2 tr:last-child td{border-bottom:none}
 .ct2 .pix-row td{background:#f0fdf4}
 .ct2 .deb-row td{background:#f8fbff}
@@ -130,7 +134,7 @@ tr:hover td{background:var(--blush)}
 /* PRINT */
 .print-header{display:none}
 @media print{
-  .topbar,.tabs,.frow,.pills,.sim-box,.chips,.band-bar,.brow,.no-print,.status-box{display:none!important}
+  .topbar,.tabs,.ctrl,.frow,.pills,.sim-box,.chips,.band-bar,.brow,.no-print,.status-box{display:none!important}
   body{background:#fff}#app{display:block!important}
   #pane-tabela{display:none!important}#pane-sim{display:block!important}
   .print-header{display:block;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:2px solid #f9a8cc}
@@ -146,16 +150,17 @@ tr:hover td{background:var(--blush)}
 <div id="ls">
   <div class="lc">
     <div class="ll">
-      <img src="/logo.png" alt="" onerror="this.style.display='none'">
-      <div class="fl">ðŸŒ¸</div>
+      <div class="logo-wrap" id="ll-logo">
+        <img id="ll-logo-img" src="" alt="Mimo Store" onerror="tryNextLogo(this)">
+      </div>
       <div class="br">Mimo<span>Store</span> CBA</div>
       <div class="sb">Portal do Vendedor</div>
-      <span class="role-badge">ðŸ›ï¸ Acesso Vendedor</span>
+      <span class="role-badge">Acesso Vendedor</span>
     </div>
-    <div class="lf-g"><label>UsuÃ¡rio</label><input class="lf-inp" type="text" id="lu" placeholder="vendedor" onkeydown="if(event.key==='Enter')login()"></div>
-    <div class="lf-g"><label>Senha</label><input class="lf-inp" type="password" id="lp" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" onkeydown="if(event.key==='Enter')login()"></div>
+    <div class="lf-g"><label>Usu&#225;rio</label><input class="lf-inp" type="text" id="lu" placeholder="vendedor" onkeydown="if(event.key==='Enter')login()"></div>
+    <div class="lf-g"><label>Senha</label><input class="lf-inp" type="password" id="lp" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" onkeydown="if(event.key==='Enter')login()"></div>
     <button class="lb" onclick="login()">Entrar</button>
-    <div class="le" id="le">UsuÃ¡rio ou senha incorretos.</div>
+    <div class="le" id="le">Usu&#225;rio ou senha incorretos.</div>
   </div>
 </div>
 
@@ -163,8 +168,7 @@ tr:hover td{background:var(--blush)}
 <div id="app">
   <div class="topbar">
     <div class="tb-brand">
-      <img src="/logo.png" alt="" onerror="this.style.display='none'" style="height:36px">
-      <span style="font-size:20px">ðŸŒ¸</span>
+      <img class="logo-img" id="app-logo" src="" alt="Mimo Store" onerror="tryNextLogo(this)">
       <span class="bn">Mimo<span>Store</span></span>
       <span class="tg">Vendedor</span>
     </div>
@@ -174,19 +178,24 @@ tr:hover td{background:var(--blush)}
     </div>
   </div>
   <div class="tabs">
-    <button class="tb active" onclick="showTab('tabela')">ðŸ“‹ PreÃ§os</button>
-    <button class="tb" onclick="showTab('sim')">ðŸ§® SimulaÃ§Ã£o</button>
+    <button class="tb active" onclick="showTab('tabela')">Precos</button>
+    <button class="tb" onclick="showTab('sim')">Simulacao</button>
   </div>
   <div class="main">
 
-    <!-- PREÃ‡OS -->
+    <!-- PRECOS -->
     <div id="pane-tabela">
       <div class="status-box" id="status-box">
         <div class="spin" id="spin"></div>
         <span id="status-txt">Carregando produtos...</span>
       </div>
+      <div class="ctrl">
+        <label>Lucro extra R$</label>
+        <input type="number" id="lucro" value="0" min="0" step="10" oninput="renderTab()">
+        <span style="font-size:11px;color:var(--mu)">(soma ao preco de venda do sistema)</span>
+      </div>
       <div class="frow">
-        <input type="text" id="tsearch" class="sinp" placeholder="ðŸ” Buscar modelo, cor ou capacidadeâ€¦" oninput="renderTab()">
+        <input type="text" id="tsearch" class="sinp" placeholder="Buscar modelo, cor ou capacidade..." oninput="renderTab()">
         <select id="tmarca" onchange="renderTab()"><option value="">Todas marcas</option></select>
         <select id="tcap" onchange="renderTab()"><option value="">Todas cap.</option></select>
         <select id="tcond" onchange="renderTab()"><option value="">Todas cond.</option></select>
@@ -199,14 +208,14 @@ tr:hover td{background:var(--blush)}
       <div class="tw" id="tbl-wrap" style="display:none">
         <table>
           <thead><tr>
-            <th class="s" onclick="srt('marca')">Marca <span id="sm">â†•</span></th>
-            <th class="s" onclick="srt('modelo')">Modelo <span id="smo">â†•</span></th>
+            <th class="s" onclick="srt('marca')">Marca <span id="sm">&#8597;</span></th>
+            <th class="s" onclick="srt('modelo')">Modelo <span id="smo">&#8597;</span></th>
             <th>Cap.</th><th>Cor</th><th>Cond.</th>
-            <th class="r s" onclick="srt('venda')">PreÃ§o <span id="sv">â†•</span></th>
-            <th class="r" style="color:var(--g)">PIX/Ã€vista</th>
-            <th class="r" style="color:var(--b)">DÃ©b.Visa<br><small style="font-weight:400">1,25%</small></th>
-            <th class="r" style="color:var(--b)">DÃ©b.Elo<br><small style="font-weight:400">2,39%</small></th>
-            <th class="r" style="color:var(--b)">CrÃ©d.Ã€vista<br><small style="font-weight:400">3,20%</small></th>
+            <th class="r s" onclick="srt('venda')">Preco <span id="sv">&#8597;</span></th>
+            <th class="r" style="color:var(--g)">PIX/Avista</th>
+            <th class="r" style="color:var(--b)">Deb.Visa<br><small style="font-weight:400">1,25%</small></th>
+            <th class="r" style="color:var(--b)">Deb.Elo<br><small style="font-weight:400">2,39%</small></th>
+            <th class="r" style="color:var(--b)">Cred.Avista<br><small style="font-weight:400">3,20%</small></th>
             <th class="r">2x</th><th class="r">3x</th><th class="r">4x</th>
             <th class="r">6x</th><th class="r">10x</th><th class="r">12x</th>
             <th class="r ep5" style="display:none">5x</th>
@@ -221,39 +230,45 @@ tr:hover td{background:var(--blush)}
       </div>
     </div>
 
-    <!-- SIMULAÃ‡ÃƒO -->
+    <!-- SIMULACAO -->
     <div id="pane-sim" style="display:none">
       <div class="print-header">
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:.5rem">
-          <img src="/logo.png" alt="Mimo Store" style="height:52px;object-fit:contain" onerror="this.style.display='none'">
+          <img id="print-logo" src="" alt="Mimo Store" style="height:56px;object-fit:contain" onerror="this.style.display='none'">
           <div>
-            <div style="font-family:'Playfair Display',serif;font-size:20px">ðŸŒ¸ Mimo<span style="color:#ec4899">Store</span> CBA</div>
-            <div style="font-size:12px;color:#9d7389">CuiabÃ¡ Â· MT</div>
+            <div style="font-family:'Playfair Display',serif;font-size:20px">Mimo<span style="color:#ec4899">Store</span> CBA</div>
+            <div style="font-size:12px;color:#9d7389">Cuiab&#225; &#183; MT</div>
           </div>
         </div>
         <div id="print-date" style="font-size:12px;color:#9d7389;margin-top:4px;font-style:italic"></div>
-        <div style="font-size:11px;color:#b45309;margin-top:3px;font-style:italic">âš ï¸ Podendo sofrer alteraÃ§Ã£o devido Ã  disponibilidade de estoque.</div>
+        <div style="font-size:11px;color:#b45309;margin-top:3px;font-style:italic">&#9888;&#65039; Podendo sofrer alteracao devido a disponibilidade de estoque.</div>
       </div>
+
       <div class="no-print">
+        <div class="ctrl">
+          <label>Lucro extra R$</label>
+          <input type="number" id="sim-lucro" value="0" min="0" step="10" oninput="renderSim()">
+        </div>
         <div class="sim-box">
-          <input type="text" id="ssearch" placeholder="ðŸ” Buscar modelo para adicionar Ã  comparaÃ§Ã£o (atÃ© 3)â€¦" oninput="simSearch()" autocomplete="off" onblur="setTimeout(closeDrop,150)">
+          <input type="text" id="ssearch" placeholder="Buscar modelo para adicionar a comparacao (ate 3)..." oninput="simSearch()" autocomplete="off" onblur="setTimeout(closeDrop,150)">
           <div class="sdrop" id="sdrop"></div>
         </div>
         <div class="chips" id="chips"></div>
         <div class="band-bar">
           <label>Bandeira / Modalidade:</label>
           <select id="sband" onchange="renderSim()">
-            <option value="vm_cred">Visa / Master â€” CrÃ©dito (3,20% Ã  vista)</option>
-            <option value="elo_cred">Elo / Outras â€” CrÃ©dito (6,17% Ã  vista)</option>
-            <option value="vm_deb">Visa / Master â€” DÃ©bito (1,25%)</option>
-            <option value="elo_deb">Elo / Outras â€” DÃ©bito (2,39%)</option>
+            <option value="vm_cred">Visa / Master &#8212; Credito (3,20% a vista)</option>
+            <option value="elo_cred">Elo / Outras &#8212; Credito (6,17% a vista)</option>
+            <option value="vm_deb">Visa / Master &#8212; Debito (1,25%)</option>
+            <option value="elo_deb">Elo / Outras &#8212; Debito (2,39%)</option>
           </select>
         </div>
         <div class="brow">
-          <button class="btn btn-pk" onclick="window.print()">ðŸ–¨ Imprimir / Enviar ao cliente</button>
-          <span style="font-size:11px;color:var(--mu)">Sem custos ou margens na impressÃ£o</span>
+          <button class="btn btn-pk" onclick="window.print()">Imprimir / Enviar ao cliente</button>
+          <span style="font-size:11px;color:var(--mu)">Sem custos ou margens na impressao</span>
         </div>
       </div>
+
       <div class="empty" id="sim-empty"><p>Adicione modelos acima para comparar</p></div>
       <div class="cmp-wrap" id="cmp-wrap" style="display:none">
         <table class="ct2" id="ctbl"></table>
@@ -264,38 +279,52 @@ tr:hover td{background:var(--blush)}
 </div>
 
 <script>
-// â•â• AUTH â•â•
-const SK='msc-vend-ses',CK='msc-vend-creds';
-function getCreds(){try{const s=localStorage.getItem(CK);return s?JSON.parse(s):{user:'vendedor',pass:'mimo2025'};}catch{return{user:'vendedor',pass:'mimo2025'};}}
+// ══ LOGO - tenta varios caminhos ══
+var LOGO_PATHS=['/frontend/img/logo.png','/frontend/logo.png','/images/logo.png','/img/logo.png','/logo.png','/assets/logo.png','/frontend/assets/logo.png','/public/logo.png'];
+var _logoIdx=0;
+function tryNextLogo(el){
+  _logoIdx++;
+  if(_logoIdx<LOGO_PATHS.length){el.src=LOGO_PATHS[_logoIdx];}
+  else{el.style.display='none';}
+}
+function initLogos(){
+  var imgs=document.querySelectorAll('#ll-logo-img,#app-logo,#print-logo');
+  imgs.forEach(function(img){img.src=LOGO_PATHS[0];});
+}
+
+// ══ AUTH ══
+var SK='msc-vend-ses',CK='msc-vend-creds';
+function getCreds(){try{var s=localStorage.getItem(CK);return s?JSON.parse(s):{user:'vendedor',pass:'mimo2025'};}catch(e){return{user:'vendedor',pass:'mimo2025'};}}
 function login(){
-  const u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value,c=getCreds();
-  if(u===c.user&&p===c.pass){sessionStorage.setItem(SK,'1');document.getElementById('ls').style.display='none';document.getElementById('app').style.cssText='display:flex;flex-direction:column';initApp();}
-  else{document.getElementById('le').style.display='block';document.getElementById('lp').value='';}
+  var u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value,c=getCreds();
+  if(u===c.user&&p===c.pass){
+    sessionStorage.setItem(SK,'1');
+    document.getElementById('ls').style.display='none';
+    document.getElementById('app').style.cssText='display:flex;flex-direction:column';
+    initApp();
+  }else{document.getElementById('le').style.display='block';document.getElementById('lp').value='';}
 }
 function logout(){sessionStorage.removeItem(SK);location.reload();}
 
-// â•â• TAXAS â•â•
-const TX={dv:1.25,de:2.39,av:3.20,ae:6.17,pv:1.99,pe:6.78,ac:1.89};
-const tP=(n,b)=>(b==='vm'?TX.pv:TX.pe)+TX.ac*n;
-const mk=(v,t)=>v*(1+t/100);
-const ar=v=>Math.round(v/10)*10;
-const fm=v=>'R$\u00a0'+ar(v).toLocaleString('pt-BR');
+// ══ TAXAS ══
+var TX={dv:1.25,de:2.39,av:3.20,ae:6.17,pv:1.99,pe:6.78,ac:1.89};
+function tP(n,b){return(b==='vm'?TX.pv:TX.pe)+TX.ac*n;}
+function mk(v,t){return v*(1+t/100);}
+function ar(v){return Math.round(v/10)*10;}
+function fm(v){return 'R$\u00a0'+ar(v).toLocaleString('pt-BR');}
 
-// â•â• CORES â•â•
-const CRS={branco:'#f0f0ec',azul:'#4a90d9',preto:'#2c2c2c',rosa:'#f4a0b5',natural:'#c8b89a',silver:'#b0b0be',laranja:'#f07830',roxo:'#8b5cf6',verde:'#4caf7d',gold:'#c9a227',desert:'#c8a882',vermelho:'#e25555','lilÃ¡s':'#b085f5',lilas:'#b085f5'};
-const dc=c=>{if(!c)return '#aaa';c=c.toLowerCase();for(const[k,v]of Object.entries(CRS))if(c.includes(k))return v;return '#aaa';};
+// ══ CORES ══
+var CRS={branco:'#f0f0ec',azul:'#4a90d9',preto:'#2c2c2c',rosa:'#f4a0b5',natural:'#c8b89a',silver:'#b0b0be',laranja:'#f07830',roxo:'#8b5cf6',verde:'#4caf7d',gold:'#c9a227',desert:'#c8a882',vermelho:'#e25555',lilas:'#b085f5',lavanda:'#9b89c4'};
+function dc(c){if(!c)return '#aaa';c=c.toLowerCase();var k,v;for(k in CRS){if(CRS.hasOwnProperty(k)&&c.indexOf(k)>=0)return CRS[k];}return '#aaa';}
 
-// â•â• PRODUTOS â•â•
-let produtos=[];
-let hidden=new Set();
+// ══ PRODUTOS ══
+var produtos=[];
+var hidden={};
 
-// â”€â”€ NORMALIZA campos reais da API â”€â”€
-// Campos confirmados: id, bat, cap, cor, cpo, img, obs, cond, forn, orig,
-//                     avail(bool), custo, marca, anatel, margin, modelo
 function norm(p,idx){
-  const custo=parseFloat(p.custo||0);
-  const margem=parseFloat(p.margin||p.margem||20);
-  const venda=custo>0 ? Math.round(custo*(1+margem/100)) : 0;
+  var custo=parseFloat(p.custo||0);
+  var margem=parseFloat(p.margin||p.margem||20);
+  var venda=custo>0?Math.round(custo*(1+margem/100)):0;
   return{
     id:String(p.id||idx),
     marca:p.marca||'',
@@ -303,178 +332,239 @@ function norm(p,idx){
     cap:p.cap||'',
     cor:p.cor||'',
     cond:p.cond||p.condicao||'',
-    venda,
+    venda:venda,
     bat:p.bat||null,
     avail:p.avail===true||p.avail==='true'||p.avail===1,
   };
 }
 
 function setStatus(msg,type){
-  const box=document.getElementById('status-box'),spin=document.getElementById('spin'),txt=document.getElementById('status-txt');
-  txt.textContent=msg;spin.style.display=type==='loading'?'inline-block':'none';
-  box.style.cssText=`background:${type==='ok'?'var(--gbg)':type==='err'?'var(--rbg)':'var(--blush)'};border:1px solid ${type==='ok'?'rgba(22,163,74,.3)':type==='err'?'rgba(220,38,38,.3)':'var(--bd)'};border-radius:var(--rads);padding:.6rem 1rem;margin-bottom:.6rem;font-size:12px;display:flex;align-items:center;gap:8px;color:${type==='ok'?'var(--g)':type==='err'?'var(--r)':'var(--mu)'}`;
+  var box=document.getElementById('status-box'),spin=document.getElementById('spin'),txt=document.getElementById('status-txt');
+  txt.textContent=msg;
+  spin.style.display=type==='loading'?'inline-block':'none';
+  var bg=type==='ok'?'var(--gbg)':type==='err'?'var(--rbg)':'var(--blush)';
+  var bc=type==='ok'?'rgba(22,163,74,.3)':type==='err'?'rgba(220,38,38,.3)':'var(--bd)';
+  var col=type==='ok'?'var(--g)':type==='err'?'var(--r)':'var(--mu)';
+  box.style.cssText='border-radius:var(--rads);padding:.6rem 1rem;margin-bottom:.6rem;font-size:12px;display:flex;align-items:center;gap:8px;border:1px solid '+bc+';background:'+bg+';color:'+col;
 }
 
-async function fetchProdutos(){
-  setStatus('Carregando produtos do banco de dados...','loading');
-  try{
-    const res=await fetch('/api/produtos');
+function fetchProdutos(){
+  setStatus('Carregando produtos...','loading');
+  return fetch('/api/produtos').then(function(res){
     if(!res.ok)throw new Error('HTTP '+res.status);
-    const data=await res.json();
-
-    // API retorna array direto: [{id,bat,cap,cor,cond,avail,custo,margin,marca,modelo,...}]
-    const lista=Array.isArray(data)?data:(data.lista||data.produtos||data.data||[]);
-    const todos=lista.map((p,i)=>norm(p,i));
-    const disponiveis=todos.filter(p=>p.avail&&p.venda>0);
-
-    if(!todos.length){setStatus('âš ï¸ Nenhum produto retornado pela API.','err');return false;}
-    if(!disponiveis.length){
-      setStatus(`âš ï¸ ${todos.length} produtos encontrados mas nenhum marcado como disponÃ­vel (avail=true).`,'err');
-      produtos=todos.filter(p=>p.venda>0);
-    }else{
-      produtos=disponiveis;
-    }
-    setStatus(`âœ… ${produtos.length} produto${produtos.length>1?'s':''} disponÃ­ve${produtos.length>1?'is':'l'} carregado${produtos.length>1?'s':''}!`,'ok');
+    return res.json();
+  }).then(function(data){
+    var lista=Array.isArray(data)?data:(data.lista||data.produtos||data.data||[]);
+    var todos=lista.map(function(p,i){return norm(p,i);});
+    var disp=todos.filter(function(p){return p.avail&&p.venda>0;});
+    if(!todos.length){setStatus('Nenhum produto retornado pela API.','err');return false;}
+    produtos=disp.length>0?disp:todos.filter(function(p){return p.venda>0;});
+    setStatus('OK: '+produtos.length+' produto'+(produtos.length>1?'s':'')+(disp.length>0?' disponivel'+(produtos.length>1?'is':''):'')+'!','ok');
     return true;
-  }catch(e){
-    setStatus(`âŒ Erro ao carregar: ${e.message}`,'err');
+  }).catch(function(e){
+    setStatus('Erro ao carregar: '+e.message,'err');
     return false;
-  }
+  });
 }
 
-// â•â• TABS â•â•
+// ══ TABS ══
 function showTab(t){
-  ['tabela','sim'].forEach(id=>document.getElementById('pane-'+id).style.display=id===t?'block':'none');
-  document.querySelectorAll('.tb').forEach((el,i)=>el.classList.toggle('active',['tabela','sim'][i]===t));
+  ['tabela','sim'].forEach(function(id){document.getElementById('pane-'+id).style.display=id===t?'block':'none';});
+  document.querySelectorAll('.tb').forEach(function(el,i){el.classList.toggle('active',['tabela','sim'][i]===t);});
 }
 
-// â•â• PILLS â•â•
-const EX=[5,7,8,9,11];let extraOn=new Set();
-function buildPills(){const div=document.getElementById('epills');div.innerHTML='';EX.forEach(n=>{const p=document.createElement('span');p.className='pl';p.textContent=n+'x';p.onclick=()=>{extraOn.has(n)?extraOn.delete(n):extraOn.add(n);p.classList.toggle('on',extraOn.has(n));applyExt();};div.appendChild(p);});}
-function applyExt(){EX.forEach(n=>document.querySelectorAll('.ep'+n).forEach(el=>el.style.display=extraOn.has(n)?'':'none'));}
+// ══ PILLS ══
+var EX=[5,7,8,9,11];var extraOn={};
+function buildPills(){
+  var div=document.getElementById('epills');div.innerHTML='';
+  EX.forEach(function(n){
+    var p=document.createElement('span');p.className='pl';p.textContent=n+'x';
+    p.onclick=function(){extraOn[n]=!extraOn[n];p.classList.toggle('on',!!extraOn[n]);applyExt();};
+    div.appendChild(p);
+  });
+}
+function applyExt(){EX.forEach(function(n){document.querySelectorAll('.ep'+n).forEach(function(el){el.style.display=extraOn[n]?'':'none';});});}
 
-// â•â• FILTROS â•â•
-const CO={'64GB':0,'128GB':1,'256GB':2,'512GB':3,'1TB':4,'2TB':5};
-let srtK='modelo',srtA=true;
+// ══ FILTROS ══
+var CO={'64GB':0,'128GB':1,'256GB':2,'512GB':3,'1TB':4,'2TB':5};
+var srtK='modelo',srtA=true;
 function srt(k){if(srtK===k)srtA=!srtA;else{srtK=k;srtA=true;}renderTab();}
 function buildFilters(){
-  const marcas=[...new Set(produtos.map(r=>r.marca))].filter(Boolean).sort();
-  const caps=[...new Set(produtos.map(r=>r.cap))].filter(Boolean).sort((a,b)=>(CO[a]??9)-(CO[b]??9));
-  const conds=[...new Set(produtos.map(r=>r.cond))].filter(Boolean).sort();
-  const sm=document.getElementById('tmarca');sm.innerHTML='<option value="">Todas marcas</option>'+marcas.map(m=>`<option>${m}</option>`).join('');
-  const sc=document.getElementById('tcap');sc.innerHTML='<option value="">Todas cap.</option>'+caps.map(c=>`<option>${c}</option>`).join('');
-  const sco=document.getElementById('tcond');sco.innerHTML='<option value="">Todas cond.</option>'+conds.map(c=>`<option>${c}</option>`).join('');
+  var marcas=[],caps=[],conds=[];
+  produtos.forEach(function(r){
+    if(r.marca&&marcas.indexOf(r.marca)<0)marcas.push(r.marca);
+    if(r.cap&&caps.indexOf(r.cap)<0)caps.push(r.cap);
+    if(r.cond&&conds.indexOf(r.cond)<0)conds.push(r.cond);
+  });
+  marcas.sort();caps.sort(function(a,b){return(CO[a]||9)-(CO[b]||9);});conds.sort();
+  var sm=document.getElementById('tmarca');sm.innerHTML='<option value="">Todas marcas</option>'+marcas.map(function(m){return'<option>'+m+'</option>';}).join('');
+  var sc=document.getElementById('tcap');sc.innerHTML='<option value="">Todas cap.</option>'+caps.map(function(c){return'<option>'+c+'</option>';}).join('');
+  var sco=document.getElementById('tcond');sco.innerHTML='<option value="">Todas cond.</option>'+conds.map(function(c){return'<option>'+c+'</option>';}).join('');
 }
 
-// â•â• RENDER TABELA â•â•
+// ══ RENDER TABELA ══
 function renderTab(){
-  const q=document.getElementById('tsearch').value.toLowerCase().trim();
-  const fm2=document.getElementById('tmarca').value,fc=document.getElementById('tcap').value,fcd=document.getElementById('tcond').value;
-  ['sm','smo','sv'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=srtK===['marca','modelo','venda'][i]?(srtA?'â†‘':'â†“'):'â†•';});
-  let data=produtos.filter(r=>
-    !hidden.has(r.id)&&
-    (!q||(r.marca+' '+r.modelo+' '+r.cap+' '+r.cor).toLowerCase().includes(q))&&
-    (!fm2||r.marca===fm2)&&(!fc||r.cap===fc)&&(!fcd||r.cond===fcd));
-  data.sort((a,b)=>{const av=a[srtK],bv=b[srtK];if(srtK==='cap')return srtA?(CO[av]??9)-(CO[bv]??9):(CO[bv]??9)-(CO[av]??9);if(typeof av==='number')return srtA?av-bv:bv-av;return srtA?(av||'').localeCompare(bv||'','pt'):(bv||'').localeCompare(av||'','pt');});
+  var L=parseFloat(document.getElementById('lucro').value)||0;
+  var q=document.getElementById('tsearch').value.toLowerCase().trim();
+  var fm2=document.getElementById('tmarca').value,fc=document.getElementById('tcap').value,fcd=document.getElementById('tcond').value;
+  ['sm','smo','sv'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.innerHTML=srtK===['marca','modelo','venda'][i]?(srtA?'&#8593;':'&#8595;'):'&#8597;';});
+  var data=produtos.filter(function(r){
+    return !hidden[r.id]&&
+      (!q||(r.marca+' '+r.modelo+' '+r.cap+' '+r.cor).toLowerCase().indexOf(q)>=0)&&
+      (!fm2||r.marca===fm2)&&(!fc||r.cap===fc)&&(!fcd||r.cond===fcd);
+  });
+  data.sort(function(a,b){var av=a[srtK],bv=b[srtK];if(srtK==='cap')return srtA?(CO[av]||9)-(CO[bv]||9):(CO[bv]||9)-(CO[av]||9);if(typeof av==='number')return srtA?av-bv:bv-av;return srtA?(av||'').localeCompare(bv||'','pt'):(bv||'').localeCompare(av||'','pt');});
   document.getElementById('tbl-wrap').style.display='block';
-  if(!data.length){document.getElementById('tbody').innerHTML=`<tr><td colspan="22" class="empty">Nenhum produto encontrado</td></tr>`;document.getElementById('tcnt').textContent='';return;}
-  document.getElementById('tcnt').textContent=`${data.length} produto${data.length>1?'s':''}`;
-  const pr=(v,t)=>fm(mk(v,t));
-  const prN=(v,n,b='vm')=>{const p=ar(mk(v,tP(n,b)));return `${fm(p)}<span class="sub">${n}x de R$\u00a0${ar(p/n).toLocaleString('pt-BR')}</span>`;};
-  const bc=c=>{if(!c)return'';const l=c.toLowerCase();if(l.includes('semi'))return`<span class="badge bm">${c}</span>`;if(l.includes('cpo'))return'<span class="badge bc">CPO</span>';if(l.includes('anatel'))return'<span class="badge ba">ANATEL</span>';if(l==='novo')return'<span class="badge ba">Novo</span>';return`<span class="badge bm">${c}</span>`;};
-  document.getElementById('tbody').innerHTML=data.map(r=>`<tr>
-    <td>${r.marca}</td><td class="ck">${r.modelo}</td><td>${r.cap}</td>
-    <td><span class="dot" style="background:${dc(r.cor)}"></span>${r.cor}</td>
-    <td>${bc(r.cond)}${r.bat?` <small style="color:var(--mu)">ðŸ”‹${r.bat}%</small>`:''}</td>
-    <td class="r ck">${fm(r.venda)}</td>
-    <td class="r cg">${fm(r.venda)}</td>
-    <td class="r cb">${pr(r.venda,TX.dv)}</td>
-    <td class="r cb">${pr(r.venda,TX.de)}</td>
-    <td class="r cb">${pr(r.venda,TX.av)}</td>
-    <td class="r">${prN(r.venda,2)}</td><td class="r">${prN(r.venda,3)}</td><td class="r">${prN(r.venda,4)}</td>
-    <td class="r ca">${prN(r.venda,6)}</td><td class="r ca">${prN(r.venda,10)}</td><td class="r cr">${prN(r.venda,12)}</td>
-    <td class="r ep5" style="display:${extraOn.has(5)?'':'none'}">${prN(r.venda,5)}</td>
-    <td class="r ep7" style="display:${extraOn.has(7)?'':'none'}">${prN(r.venda,7)}</td>
-    <td class="r ep8" style="display:${extraOn.has(8)?'':'none'}">${prN(r.venda,8)}</td>
-    <td class="r ep9" style="display:${extraOn.has(9)?'':'none'}">${prN(r.venda,9)}</td>
-    <td class="r ep11" style="display:${extraOn.has(11)?'':'none'}">${prN(r.venda,11)}</td>
-    <td><button class="btn btn-sm" style="color:var(--mu)" onclick="hidden.add('${r.id}');renderTab()" title="Ocultar">âœ•</button></td>
-  </tr>`).join('');
+  if(!data.length){document.getElementById('tbody').innerHTML='<tr><td colspan="22" class="empty">Nenhum produto encontrado</td></tr>';document.getElementById('tcnt').textContent='';return;}
+  document.getElementById('tcnt').textContent=data.length+' produto'+(data.length>1?'s':'');
+  function pr(v,t){return fm(mk(v,t));}
+  function prN(v,n,b){var p=ar(mk(v,tP(n,b||'vm')));return fm(p)+'<span class="sub">'+n+'x de R\u00a0'+ar(p/n).toLocaleString('pt-BR')+'</span>';}
+  function bcond(c){if(!c)return'';var l=c.toLowerCase();if(l.indexOf('semi')>=0)return'<span class="badge bm">'+c+'</span>';if(l.indexOf('cpo')>=0)return'<span class="badge bc">CPO</span>';if(l.indexOf('anatel')>=0)return'<span class="badge ba">ANATEL</span>';if(l==='novo')return'<span class="badge ba">Novo</span>';return'<span class="badge bm">'+c+'</span>';}
+  document.getElementById('tbody').innerHTML=data.map(function(r){
+    var base=r.venda+L;
+    return '<tr>'+
+      '<td>'+r.marca+'</td>'+
+      '<td class="ck">'+r.modelo+'</td>'+
+      '<td>'+r.cap+'</td>'+
+      '<td><span class="dot" style="background:'+dc(r.cor)+'"></span>'+r.cor+'</td>'+
+      '<td>'+bcond(r.cond)+(r.bat?' <small style="color:var(--mu)">Bat:'+r.bat+'%</small>':'')+'</td>'+
+      '<td class="r ck">'+fm(base)+'</td>'+
+      '<td class="r cg">'+fm(base)+'</td>'+
+      '<td class="r cb">'+pr(base,TX.dv)+'</td>'+
+      '<td class="r cb">'+pr(base,TX.de)+'</td>'+
+      '<td class="r cb">'+pr(base,TX.av)+'</td>'+
+      '<td class="r">'+prN(base,2)+'</td>'+
+      '<td class="r">'+prN(base,3)+'</td>'+
+      '<td class="r">'+prN(base,4)+'</td>'+
+      '<td class="r ca">'+prN(base,6)+'</td>'+
+      '<td class="r ca">'+prN(base,10)+'</td>'+
+      '<td class="r cr">'+prN(base,12)+'</td>'+
+      '<td class="r ep5" style="display:'+(extraOn[5]?'':'none')+'">'+prN(base,5)+'</td>'+
+      '<td class="r ep7" style="display:'+(extraOn[7]?'':'none')+'">'+prN(base,7)+'</td>'+
+      '<td class="r ep8" style="display:'+(extraOn[8]?'':'none')+'">'+prN(base,8)+'</td>'+
+      '<td class="r ep9" style="display:'+(extraOn[9]?'':'none')+'">'+prN(base,9)+'</td>'+
+      '<td class="r ep11" style="display:'+(extraOn[11]?'':'none')+'">'+prN(base,11)+'</td>'+
+      '<td><button class="btn btn-sm" style="color:var(--mu)" onclick="hidden[\''+r.id+'\']=true;renderTab()">X</button></td>'+
+    '</tr>';
+  }).join('');
   applyExt();
 }
 
-// â•â• SIMULAÃ‡ÃƒO â•â•
-const simHex=['#ec4899','#1d4ed8','#16a34a'];const simCls=['ch1','ch2','ch3'];
-let simModels=[];
+// ══ SIMULACAO ══
+var simHex=['#ec4899','#1d4ed8','#16a34a'];var simCls=['ch1','ch2','ch3'];
+var simModels=[];
 function simSearch(){
-  const q=document.getElementById('ssearch').value.toLowerCase().trim(),drop=document.getElementById('sdrop');
+  var q=document.getElementById('ssearch').value.toLowerCase().trim(),drop=document.getElementById('sdrop');
   if(q.length<2){drop.classList.remove('open');drop.innerHTML='';return;}
-  const found=produtos.filter(r=>(r.marca+' '+r.modelo+' '+r.cap+' '+r.cor).toLowerCase().includes(q)).slice(0,9);
+  var found=[];
+  produtos.forEach(function(r){if((r.marca+' '+r.modelo+' '+r.cap+' '+r.cor).toLowerCase().indexOf(q)>=0&&found.length<9)found.push(r);});
   if(!found.length){drop.classList.remove('open');return;}
-  drop.innerHTML=found.map(r=>`<div class="sri" onmousedown="addModel('${r.id}')"><span><span class="dot" style="background:${dc(r.cor)}"></span><strong>${r.marca} ${r.modelo}</strong> Â· ${r.cap} Â· ${r.cor}</span><span style="font-size:11px;color:var(--mu)">${fm(r.venda)}</span></div>`).join('');
+  drop.innerHTML=found.map(function(r){return'<div class="sri" onmousedown="addModel(\''+r.id+'\')"><span><span class="dot" style="background:'+dc(r.cor)+'"></span><strong>'+r.marca+' '+r.modelo+'</strong> &middot; '+r.cap+' &middot; '+r.cor+'</span><span style="font-size:11px;color:var(--mu)">'+fm(r.venda)+'</span></div>';}).join('');
   drop.classList.add('open');
 }
 function closeDrop(){document.getElementById('sdrop').classList.remove('open');}
 function addModel(id){
   document.getElementById('sdrop').classList.remove('open');document.getElementById('sdrop').innerHTML='';document.getElementById('ssearch').value='';
-  if(simModels.length>=3){alert('MÃ¡ximo 3 modelos.');return;}
-  if(simModels.find(m=>m.id===id)){alert('Modelo jÃ¡ adicionado.');return;}
-  const item=produtos.find(r=>r.id===id);if(!item)return;
-  simModels.push({id,item});renderChips();renderSim();
+  if(simModels.length>=3){alert('Maximo 3 modelos.');return;}
+  var found=false;simModels.forEach(function(m){if(m.id===id)found=true;});
+  if(found){alert('Modelo ja adicionado.');return;}
+  var item=null;produtos.forEach(function(r){if(r.id===id)item=r;});
+  if(!item)return;
+  simModels.push({id:id,item:item});renderChips();renderSim();
 }
-function removeModel(id){simModels=simModels.filter(m=>m.id!==id);renderChips();renderSim();}
+function removeModel(id){simModels=simModels.filter(function(m){return m.id!==id;});renderChips();renderSim();}
 function renderChips(){
-  const div=document.getElementById('chips');
+  var div=document.getElementById('chips');
   if(!simModels.length){div.innerHTML='<span style="font-size:13px;color:var(--mu);font-style:italic">Nenhum modelo selecionado.</span>';return;}
-  div.innerHTML=simModels.map((m,i)=>`<span class="chip ${simCls[i]}"><span class="dot" style="background:${dc(m.item.cor)}"></span>${m.item.modelo} ${m.item.cap} Â· ${m.item.cor}<span class="rm" onmousedown="removeModel('${m.id}')">Ã—</span></span>`).join('');
+  div.innerHTML=simModels.map(function(m,i){return'<span class="chip '+simCls[i]+'"><span class="dot" style="background:'+dc(m.item.cor)+'"></span>'+m.item.modelo+' '+m.item.cap+' &middot; '+m.item.cor+'<span class="rm" onmousedown="removeModel(\''+m.id+'\')">&#215;</span></span>';}).join('');
 }
 function renderSim(){
-  const band=document.getElementById('sband').value,wrap=document.getElementById('cmp-wrap'),empty=document.getElementById('sim-empty');
+  var L=parseFloat(document.getElementById('sim-lucro').value)||0;
+  var band=document.getElementById('sband').value;
+  var wrap=document.getElementById('cmp-wrap'),empty=document.getElementById('sim-empty');
   if(!simModels.length){wrap.style.display='none';empty.style.display='block';return;}
   wrap.style.display='block';empty.style.display='none';
-  const isDeb=band.includes('deb'),debTax=band==='vm_deb'?TX.dv:TX.de,avTax=band==='vm_cred'?TX.av:TX.ae,bBase=band.includes('vm')?'vm':'elo';
-  const bLbl=band==='vm_cred'?'Visa/Master':band==='elo_cred'?'Elo/Outras':band==='vm_deb'?'Visa/Master DÃ©b.':'Elo/Outras DÃ©b.';
-  const modos=isDeb?[
-    {label:'PIX / Ã€ vista',taxa:0,n:1,cls:'pix-row'},
-    {label:`DÃ©bito â€” ${bLbl}`,taxa:debTax,n:1,cls:'deb-row'},
+  var isDeb=band.indexOf('deb')>=0;
+  var debTax=band==='vm_deb'?TX.dv:TX.de;
+  var avTax=band==='vm_cred'?TX.av:TX.ae;
+  var bBase=band.indexOf('vm')>=0?'vm':'elo';
+  var bLbl=band==='vm_cred'?'Visa/Master':band==='elo_cred'?'Elo/Outras':band==='vm_deb'?'Visa/Master Deb.':'Elo/Outras Deb.';
+
+  // Todas as modalidades - 2x a 12x
+  var modos=isDeb?[
+    {label:'PIX / A vista',taxa:0,n:1,cls:'pix-row'},
+    {label:'Debito &mdash; '+bLbl,taxa:debTax,n:1,cls:'deb-row'},
   ]:[
-    {label:'PIX / Ã€ vista',taxa:0,n:1,cls:'pix-row'},
-    {label:'DÃ©bito Visa/Master',taxa:TX.dv,n:1,cls:'deb-row'},
-    {label:'CrÃ©d. Ã  vista',taxa:avTax,n:1,cls:''},
+    {label:'PIX / A vista',taxa:0,n:1,cls:'pix-row'},
+    {label:'Debito Visa/Master',taxa:TX.dv,n:1,cls:'deb-row'},
+    {label:'Cred. a vista',taxa:avTax,n:1,cls:''},
     {label:'2x',taxa:tP(2,bBase),n:2,cls:''},
     {label:'3x',taxa:tP(3,bBase),n:3,cls:''},
     {label:'4x',taxa:tP(4,bBase),n:4,cls:''},
+    {label:'5x',taxa:tP(5,bBase),n:5,cls:''},
     {label:'6x',taxa:tP(6,bBase),n:6,cls:''},
+    {label:'7x',taxa:tP(7,bBase),n:7,cls:''},
+    {label:'8x',taxa:tP(8,bBase),n:8,cls:''},
+    {label:'9x',taxa:tP(9,bBase),n:9,cls:''},
     {label:'10x',taxa:tP(10,bBase),n:10,cls:'hi-row'},
+    {label:'11x',taxa:tP(11,bBase),n:11,cls:'hi-row'},
     {label:'12x',taxa:tP(12,bBase),n:12,cls:'hi-row'},
   ];
-  const prices=simModels.map(m=>modos.map(mo=>({tot:ar(mk(m.item.venda,mo.taxa)),parc:mo.n>1?ar(mk(m.item.venda,mo.taxa)/mo.n):null})));
-  const colHdr=simModels.map((m,i)=>`<th class="cm" style="color:${simHex[i]}"><span class="dot" style="background:${dc(m.item.cor)}"></span>${m.item.modelo}<br><span style="font-weight:400;font-size:10px">${m.item.cap} Â· ${m.item.cor}${m.item.cond?' Â· '+m.item.cond:''}</span></th>`).join('');
-  const rows=modos.map((mo,mi)=>{
-    const tots=prices.map(mp=>mp[mi].tot),minTot=Math.min(...tots);
-    const cells=prices.map((mp,pi)=>{
-      const{tot,parc}=mp[mi],diff=tot-minTot;
-      const badge=diff===0?'<span class="dbadge db-best">âœ“ Melhor</span>':`<span class="dbadge db-more">+R$\u00a0${diff.toLocaleString('pt-BR')}</span>`;
-      let mH,sH;
-      if(mo.n>1&&parc){const pc=mo.n>=10?'var(--r)':'var(--dk)';mH=`<span style="font-size:17px;font-weight:700;color:${pc}">${mo.n}x</span><span style="font-size:15px;font-weight:700;color:${pc}"> de R$\u00a0${parc.toLocaleString('pt-BR')}</span>`;sH=`<span style="font-size:11px;color:var(--mu);display:block;margin-top:3px">Total ${fm(tot)}</span>`;}
-      else{mH=`<span style="font-size:16px;font-weight:700;color:${mo.taxa===0?'var(--g)':'var(--dk)'}">${fm(tot)}</span>`;sH='';}
-      return `<td class="pc" style="border-left:3px solid ${simHex[pi]}22">${mH}${sH}<br>${badge}</td>`;
-    }).join('');
-    return `<tr class="${mo.cls}"><td class="pag-label">${mo.label}</td>${cells}</tr>`;
+
+  var prices=simModels.map(function(m){
+    var base=m.item.venda+L;
+    return modos.map(function(mo){return{tot:ar(mk(base,mo.taxa)),parc:mo.n>1?ar(mk(base,mo.taxa)/mo.n):null};});
+  });
+
+  var colHdr=simModels.map(function(m,i){
+    return'<th class="cm" style="color:'+simHex[i]+'"><span class="dot" style="background:'+dc(m.item.cor)+'"></span>'+m.item.modelo+'<br><span style="font-weight:400;font-size:10px">'+m.item.cap+' &middot; '+m.item.cor+(m.item.cond?' &middot; '+m.item.cond:'')+'</span></th>';
   }).join('');
-  document.getElementById('ctbl').innerHTML=`<thead><tr><th>Forma de pagamento</th>${colHdr}</tr></thead><tbody>${rows}</tbody>`;
-  document.getElementById('print-date').textContent=`OrÃ§amento vÃ¡lido somente na data de hoje â€” ${new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'})}`;
+
+  var rows=modos.map(function(mo,mi){
+    var tots=prices.map(function(mp){return mp[mi].tot;});
+    var minTot=Math.min.apply(null,tots);
+    var cells=prices.map(function(mp,pi){
+      var tot=mp[mi].tot,parc=mp[mi].parc;
+      var diff=tot-minTot;
+      var badge=diff===0?'<span class="dbadge db-best">&#10003; Melhor</span>':'<span class="dbadge db-more">+R$&#160;'+diff.toLocaleString('pt-BR')+'</span>';
+      var mH,sH;
+      if(mo.n>1&&parc){
+        var pc=mo.n>=10?'var(--r)':'var(--dk)';
+        mH='<span style="font-size:17px;font-weight:700;color:'+pc+'">'+mo.n+'x</span><span style="font-size:15px;font-weight:700;color:'+pc+'"> de R$&#160;'+parc.toLocaleString('pt-BR')+'</span>';
+        sH='<span style="font-size:11px;color:var(--mu);display:block;margin-top:3px">Total '+fm(tot)+'</span>';
+      }else{
+        mH='<span style="font-size:16px;font-weight:700;color:'+(mo.taxa===0?'var(--g)':'var(--dk)')+'">'+fm(tot)+'</span>';
+        sH='';
+      }
+      return'<td class="pc" style="border-left:3px solid '+simHex[pi]+'22">'+mH+sH+'<br>'+badge+'</td>';
+    }).join('');
+    return'<tr class="'+mo.cls+'"><td class="pag-label">'+mo.label+'</td>'+cells+'</tr>';
+  }).join('');
+
+  document.getElementById('ctbl').innerHTML='<thead><tr><th>Forma de pagamento</th>'+colHdr+'</tr></thead><tbody>'+rows+'</tbody>';
+  document.getElementById('print-date').textContent='Orcamento valido somente na data de hoje \u2014 '+new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'});
+
+  // Atualiza logo impressao
+  var pl=document.getElementById('print-logo');
+  if(pl)pl.src=LOGO_PATHS[0];
 }
 
-// â•â• INIT â•â•
-async function initApp(){
+// ══ INIT ══
+function initApp(){
   document.getElementById('tb-date').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'});
   buildPills();renderChips();
-  const ok=await fetchProdutos();
-  if(ok&&produtos.length>0){buildFilters();renderTab();}
+  initLogos();
+  fetchProdutos().then(function(ok){
+    if(ok&&produtos.length>0){buildFilters();renderTab();}
+  });
 }
-if(sessionStorage.getItem(SK)==='1'){document.getElementById('ls').style.display='none';document.getElementById('app').style.cssText='display:flex;flex-direction:column';initApp();}
+
+initLogos();
+if(sessionStorage.getItem(SK)==='1'){
+  document.getElementById('ls').style.display='none';
+  document.getElementById('app').style.cssText='display:flex;flex-direction:column';
+  initApp();
+}
 </script>
 </body>
 </html>
-
