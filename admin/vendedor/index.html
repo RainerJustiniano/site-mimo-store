@@ -89,8 +89,8 @@ tr:hover td{background:var(--blush)}
 .cmp-wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:var(--rad);background:var(--sf);box-shadow:var(--sh)}
 .ct2{width:100%;border-collapse:collapse;font-size:13px}
 .ct2 th{padding:10px 14px;font-weight:600;font-size:11px;color:var(--mu);border-bottom:1px solid var(--bd);background:var(--blush);text-align:left}
-.ct2 th.cm{text-align:center;min-width:160px}
-.ct2 td{padding:8px 14px;border-bottom:1px solid var(--bd);vertical-align:middle}
+.ct2 th.cm{text-align:center;min-width:130px}
+.ct2 td{padding:5px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
 .ct2 tr:last-child td{border-bottom:none}
 .ct2 .pix-row td{background:#f0fdf4}
 .ct2 .deb-row td{background:#f8fbff}
@@ -109,20 +109,24 @@ tr:hover td{background:var(--blush)}
 .ph-valid{font-size:11px;color:#1a0a12;font-weight:600}
 .ph-warn{font-size:10px;color:#b45309;font-style:italic}
 @media print{
-  @page{margin:15mm 12mm;size:A4}
+  @page{margin:10mm 8mm;size:A4}
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   .no-print,.topbar,.tabs,.frow,.pills,.sim-box,.chips,.band-bar,.brow,.status-box{display:none!important}
-  body{background:#fff;font-size:11px}
+  body{background:#fff;font-size:10px}
   #app{display:block!important}
   #pane-tabela{display:none!important}
   #pane-sim{display:block!important}
-  .print-header{display:block!important}
-  .cmp-wrap{box-shadow:none;border:1px solid #f0d0e0;border-radius:8px;overflow:hidden}
-  .ct2{font-size:11px}
-  .ct2 th{padding:7px 10px;font-size:10px}
-  .ct2 td{padding:6px 10px}
-  .pc{font-size:11px}
-  .dbadge{font-size:9px;padding:1px 5px}
+  .print-header{display:block!important;margin-bottom:8px}
+  .ph-top{padding-bottom:8px;margin-bottom:6px}
+  .ph-top img{height:44px}
+  .ph-info .ph-brand{font-size:16px}
+  .cmp-wrap{box-shadow:none;border:1px solid #f0d0e0;border-radius:6px;overflow:hidden}
+  .ct2{font-size:9px}
+  .ct2 th{padding:4px 6px;font-size:8px}
+  .ct2 td{padding:3px 6px}
+  .pc{font-size:9px}
+  .dbadge{font-size:8px;padding:1px 4px}
+  .pag-label{font-size:9px}
 }
 @media(max-width:700px){.main{padding:.5rem}}
 </style>
@@ -158,6 +162,11 @@ tr:hover td{background:var(--blush)}
   <div class="main">
     <div id="pane-tabela">
       <div class="status-box" id="status-box"><div class="spin" id="spin"></div><span id="status-txt">Carregando...</span></div>
+      <div style="background:var(--blush);border:1px solid var(--bd);border-radius:var(--rads);padding:.5rem .9rem;margin-bottom:.5rem;display:flex;gap:10px;align-items:center;font-size:12px;color:var(--mu)">
+        <label style="font-weight:600;white-space:nowrap">Lucro extra R$</label>
+        <input type="number" id="lucro" value="0" min="0" step="10" style="width:85px" oninput="renderTab()">
+        <span style="font-size:11px">(soma ao preco de venda do sistema)</span>
+      </div>
       <div class="frow">
         <input type="text" id="tsearch" class="sinp" placeholder="Buscar modelo, cor ou capacidade..." oninput="renderTab()">
         <select id="tmarca" onchange="renderTab()"><option value="">Todas marcas</option></select>
@@ -301,7 +310,7 @@ function renderTab(){
   function prN(v,n,b){var p=ar(mk(v,tP(n,b||"vm")));return fm(p)+"<span class='sub'>"+n+"x de R&#160;"+ar(p/n).toLocaleString("pt-BR")+"</span>";}
   function bcond(c){if(!c)return"";var l=c.toLowerCase();if(l.indexOf("semi")>=0)return"<span class='badge bm'>"+c+"</span>";if(l.indexOf("cpo")>=0)return"<span class='badge bc'>CPO</span>";if(l.indexOf("anatel")>=0)return"<span class='badge ba'>ANATEL</span>";if(l==="novo")return"<span class='badge ba'>Novo</span>";return"<span class='badge bm'>"+c+"</span>";}
   document.getElementById("tbody").innerHTML=data.map(function(r){
-    var base=r.venda;
+    var base=r.venda + (parseFloat(document.getElementById("lucro").value)||0);
     // CORRIGIDO: usa data-attribute para evitar problemas de aspas no onclick
     return "<tr>"+
       "<td>"+r.marca+"</td>"+
@@ -398,8 +407,8 @@ function renderSim(){
       var tot=mp[mi].tot,parc=mp[mi].parc,diff=tot-minTot;
       var badge=diff===0?"<span class='dbadge db-best'>&#10003; Melhor</span>":"<span class='dbadge db-more'>+R$&#160;"+diff.toLocaleString("pt-BR")+"</span>";
       var mH,sH;
-      if(mo.n>1&&parc){var pc=mo.n>=10?"var(--r)":"var(--dk)";mH="<span style='font-size:17px;font-weight:700;color:"+pc+"'>"+mo.n+"x</span><span style='font-size:15px;font-weight:700;color:"+pc+"'> de R$&#160;"+parc.toLocaleString("pt-BR")+"</span>";sH="<span style='font-size:11px;color:var(--mu);display:block;margin-top:2px'>Total "+fm(tot)+"</span>";}
-      else{mH="<span style='font-size:16px;font-weight:700;color:"+(mo.taxa===0?"var(--g)":"var(--dk)")+"'>"+fm(tot)+"</span>";sH="";}
+      if(mo.n>1&&parc){var pc=mo.n>=10?"var(--r)":"var(--dk)";mH="<span style='font-size:13px;font-weight:700;color:"+pc+"'>"+mo.n+"x</span><span style='font-size:12px;font-weight:700;color:"+pc+"'> de R$&#160;"+parc.toLocaleString("pt-BR")+"</span>";sH="<span style='font-size:10px;color:var(--mu);display:block;margin-top:1px'>Total "+fm(tot)+"</span>";}
+      else{mH="<span style='font-size:14px;font-weight:700;color:"+(mo.taxa===0?"var(--g)":"var(--dk)")+"'>"+fm(tot)+"</span>";sH="";}
       return"<td class='pc' style='border-left:3px solid "+simHex[pi]+"22'>"+mH+sH+"<br>"+badge+"</td>";
     }).join("");
     return"<tr class='"+mo.cls+"'><td class='pag-label'>"+mo.label+"</td>"+cells+"</tr>";
