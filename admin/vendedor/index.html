@@ -410,7 +410,7 @@ function renderSim(){
     return modos.map(function(mo){return{tot:ar(mk(base,mo.taxa)),parc:mo.n>1?ar(mk(base,mo.taxa)/mo.n):null};});
   });
   var colHdr=simModels.map(function(m,i){
-    var entradaInfo=entrada>0?"<br><span style='font-size:9px;color:var(--g);font-weight:600'>-R$&#160;"+entrada.toLocaleString("pt-BR")+" entrada</span>":"";
+    var entradaInfo=entrada>0?"<br><span class='no-print' style='font-size:9px;color:var(--g);font-weight:600'>-R$&#160;"+entrada.toLocaleString("pt-BR")+" entrada</span>":"";
     return"<th class='cm' style='color:"+simHex[i]+"'><span class='dot' style='background:"+dc(m.item.cor)+"'></span>"+m.item.modelo+"<br><span style='font-weight:400;font-size:10px'>"+m.item.cap+" &middot; "+m.item.cor+(m.item.cond?" &middot; "+m.item.cond:"")+"</span>"+entradaInfo+"</th>";
   }).join("");
   var rows=modos.map(function(mo,mi){
