@@ -215,6 +215,11 @@ tr:hover td{background:var(--blush)}
         </div>
       </div>
       <div class="no-print">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:.6rem;align-items:center;background:var(--blush);border:1px solid var(--bd);border-radius:var(--rads);padding:.5rem .9rem;font-size:12px;color:var(--mu)">
+          <label style="font-weight:600;white-space:nowrap">Entrada / Troca R$</label>
+          <input type="number" id="sim-entrada" value="0" min="0" step="50" style="width:100px" oninput="renderSim()">
+          <span style="font-size:11px">(subtraido do preco antes de calcular parcelamento)</span>
+        </div>
         <div class="sim-box">
           <input type="text" id="ssearch" placeholder="Buscar modelo para adicionar a comparacao (ate 3)..." oninput="simSearch()" autocomplete="off" onblur="setTimeout(closeDrop,150)">
           <div class="sdrop" id="sdrop"></div>
@@ -375,6 +380,7 @@ function renderChips(){
 }
 function renderSim(){
   var band=document.getElementById("sband").value;
+  var entrada=parseFloat(document.getElementById("sim-entrada").value)||0;
   var wrap=document.getElementById("cmp-wrap"),empty=document.getElementById("sim-empty");
   if(!simModels.length){wrap.style.display="none";empty.style.display="block";return;}
   wrap.style.display="block";empty.style.display="none";
@@ -399,8 +405,14 @@ function renderSim(){
     {label:"11x",taxa:tP(11,bBase),n:11,cls:"hi-row"},
     {label:"12x",taxa:tP(12,bBase),n:12,cls:"hi-row"}
   ];
-  var prices=simModels.map(function(m){return modos.map(function(mo){return{tot:ar(mk(m.item.venda,mo.taxa)),parc:mo.n>1?ar(mk(m.item.venda,mo.taxa)/mo.n):null};});});
-  var colHdr=simModels.map(function(m,i){return"<th class='cm' style='color:"+simHex[i]+"'><span class='dot' style='background:"+dc(m.item.cor)+"'></span>"+m.item.modelo+"<br><span style='font-weight:400;font-size:10px'>"+m.item.cap+" &middot; "+m.item.cor+(m.item.cond?" &middot; "+m.item.cond:"")+"</span></th>";}).join("");
+  var prices=simModels.map(function(m){
+    var base=Math.max(0, m.item.venda - entrada);
+    return modos.map(function(mo){return{tot:ar(mk(base,mo.taxa)),parc:mo.n>1?ar(mk(base,mo.taxa)/mo.n):null};});
+  });
+  var colHdr=simModels.map(function(m,i){
+    var entradaInfo=entrada>0?"<br><span style='font-size:9px;color:var(--g);font-weight:600'>-R$&#160;"+entrada.toLocaleString("pt-BR")+" entrada</span>":"";
+    return"<th class='cm' style='color:"+simHex[i]+"'><span class='dot' style='background:"+dc(m.item.cor)+"'></span>"+m.item.modelo+"<br><span style='font-weight:400;font-size:10px'>"+m.item.cap+" &middot; "+m.item.cor+(m.item.cond?" &middot; "+m.item.cond:"")+"</span>"+entradaInfo+"</th>";
+  }).join("");
   var rows=modos.map(function(mo,mi){
     var tots=prices.map(function(mp){return mp[mi].tot;}),minTot=Math.min.apply(null,tots);
     var cells=prices.map(function(mp,pi){
