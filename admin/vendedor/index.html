@@ -262,7 +262,7 @@ function fm(v){return "R$ "+ar(v).toLocaleString("pt-BR");}
 var CRS={branco:"#f0f0ec",azul:"#4a90d9",preto:"#2c2c2c",rosa:"#f4a0b5",natural:"#c8b89a",silver:"#b0b0be",laranja:"#f07830",roxo:"#8b5cf6",verde:"#4caf7d",gold:"#c9a227",desert:"#c8a882",vermelho:"#e25555",lilas:"#b085f5",lavanda:"#9b89c4"};
 function dc(c){if(!c)return"#aaa";c=c.toLowerCase();for(var k in CRS){if(CRS.hasOwnProperty(k)&&c.indexOf(k)>=0)return CRS[k];}return"#aaa";}
 var produtos=[],hidden={};
-function norm(p,idx){var custo=parseFloat(p.custo||0),margem=parseFloat(p.margin||p.margem||20);return{id:String(p.id||idx),marca:p.marca||"",modelo:p.modelo||"",cap:p.cap||"",cor:p.cor||"",cond:p.cond||p.condicao||"",venda:custo>0?Math.round(custo*(1+margem/100)):0,bat:p.bat||null,avail:p.avail===true||p.avail==="true"||p.avail===1};}
+function norm(p,idx){var custo=parseFloat(p.custo||0);return{id:String(p.id||idx),marca:p.marca||"",modelo:p.modelo||"",cap:p.cap||"",cor:p.cor||"",cond:p.cond||p.condicao||"",venda:custo,bat:p.bat||null,avail:p.avail===true||p.avail==="true"||p.avail===1};}
 function setStatus(msg,type){
   var box=document.getElementById("status-box"),spin=document.getElementById("spin"),txt=document.getElementById("status-txt");
   txt.textContent=msg;spin.style.display=type==="loading"?"inline-block":"none";
