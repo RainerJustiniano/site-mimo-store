@@ -388,7 +388,7 @@ function addPrecoLivre(){
   var v=parseFloat(document.getElementById("sim-preco-livre").value)||0;
   if(!v){alert("Digite um preço para simular.");return;}
   if(simModels.length>=3){alert("Máximo de 3 modelos na comparação.");return;}
-  simModels.push({item:{venda:v,modelo:"Preço Livre",cap:"R$ "+v.toLocaleString("pt-BR",{minimumFractionDigits:2}),cor:"",cond:""}});
+  simModels.push({id:"livre_"+Date.now(),item:{venda:v,modelo:"Preço Livre",cap:"R$ "+v.toLocaleString("pt-BR",{minimumFractionDigits:2}),cor:"",cond:""}});
   document.getElementById("sim-preco-livre").value="";
   renderChips();renderSim();
 }
