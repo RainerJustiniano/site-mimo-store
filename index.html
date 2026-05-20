@@ -823,11 +823,11 @@ footer{background:var(--dark);color:rgba(255,255,255,.6);padding:32px 20px}
         </div>
         <div class="form-row">
           <div class="field"><label>Preço Custo (R$)</label><input type="number" id="f-custo" placeholder="Ex: 3850" oninput="updPreview()"></div>
-          <div class="field"><label>Margem de Lucro (%)</label><input type="number" id="f-margin" value="20" min="0" max="200" oninput="updPreview()"></div>
+          
         </div>
         <div class="form-row">
           <div class="field">
-            <label>Preço de Venda Manual (R$) <span style="color:var(--gray);font-weight:400;font-size:11px">— deixe vazio para calcular pelo custo + margem</span></label>
+            <label>Preço de Venda (R$)</label>
             <input type="number" id="f-venda-manual" placeholder="Ex: 4999" min="0" step="0.01" oninput="updPreview()">
           </div>
         </div>
@@ -1553,9 +1553,8 @@ function delP(id){
 
 function updPreview(){
   const c=parseInt(document.getElementById('f-custo')?.value)||0;
-  const m=parseInt(document.getElementById('f-margin')?.value)||20;
   const manual=parseFloat(document.getElementById('f-venda-manual')?.value)||0;
-  const v=manual>0?manual:Math.round(c*(1+m/100));
+  const v=manual>0?manual:0;
   const m2=document.getElementById('f-modelo')?.value||'';
   const prev=document.getElementById('price-prev');
   const nota=manual>0?'<div style="font-size:11px;color:var(--green);margin-top:2px">\u2705 Pre\u00E7o manual</div>':'';
@@ -1565,13 +1564,13 @@ function updPreview(){
 function addProd(){
   const g=id=>document.getElementById(id)?.value?.trim()||'';
   const modelo=g('f-modelo'), custo=parseInt(g('f-custo'));
-  if(!modelo||!custo){alert('Preencha pelo menos o Modelo e o Custo.');return}
   const vendaManual=parseFloat(g('f-venda-manual'))||0;
+  if(!modelo||!custo||!vendaManual){alert('Preencha o Modelo, Preço de Custo e Preço de Venda.');return}
   const np={
     id:nxtId++,forn:g('f-forn'),marca:g('f-marca'),cond:g('f-cond'),
     modelo,cap:g('f-cap')||'\u2014',cor:g('f-cor')||'\u2014',orig:g('f-orig'),
-    bat:parseInt(g('f-bat'))||null,custo,margin:parseInt(g('f-margin'))||20,
-    vendaManual:vendaManual||null,img:g('f-img'),imgSpecs:g('f-img-specs'),
+    bat:parseInt(g('f-bat'))||null,custo,margin:0,
+    vendaManual:vendaManual,img:g('f-img'),imgSpecs:g('f-img-specs'),
     obs:g('f-obs'),desc:g('f-desc'),avail:true
   };
   P.push(np);saveP();
