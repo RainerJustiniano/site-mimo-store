@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mimo Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Banner -->
+  <div class="top-banner">
+    <span>🚚 Entrega rápida e segura para todo o Brasil!</span>
+    <span>✅ Compra 100% segura</span>
+    <span>❤️ Atendimento com carinho</span>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-left">
+      <img src="assets/logo.png" alt="Mimo Store" class="brand-logo">
+      <div class="brand-text">
+        <h1>Mimo Store</h1>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="#inicio">Início</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#acessorios">Acessórios</a>
+      <a href="#capinhas">Capinhas</a>
+      <a href="#quem-somos">Quem somos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar produtos...">
+        <button>🔍</button>
+      </div>
+      <a href="https://wa.me/5565996480119" class="icon-btn" title="WhatsApp">💬</a>
+      <a href="#favoritos" class="icon-btn" title="Favoritos">❤️</a>
+      <a href="#carrinho" class="icon-btn cart-btn"><span>🛍️</span><span class="cart-count">0</span></a>
+    </div>
+  </header>
+
+  <!-- Sidebar de Contato (Desktop) -->
+  <aside class="contact-sidebar">
+    <div class="sidebar-card">
+      <img src="assets/logo.png" alt="Mimo" class="sidebar-logo">
+      <h3>Mimo Store</h3>
+      <p>Acessórios com carinho, para você.</p>
+      <button class="highlight-btn">SEU ESTILO, SUA TECNOLOGIA, SEU MIMO!</button>
+      <div class="contact-info">
+        <p><strong>WhatsApp:</strong> 65 99648-0119</p>
+        <p><strong>Instagram:</strong> @mimo.store.65</p>
+        <p><strong>Local:</strong> Cuiabá - MT</p>
+        <p>🚚 Entrega rápida e segura</p>
+        <p>✅ Compra 100% segura</p>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+      <div class="hero-text">
+        <h2>Seu estilo,<br><span class="highlight">sua tecnologia,</span><br><em>seu mimo!</em> ❤️</span></h2>
+        <p>Acessórios com carinho, para você.</p>
+        <button class="cta-btn">Ver produtos ❤️</button>
+      </div>
+      <div class="hero-carousel">
+        <img src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_SL1500_.jpg" alt="iPhone Pink">
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <div class="feature-item">
+        <span class="feature-icon">⭐</span>
+        <h4>Produtos de qualidade</h4>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✅</span>
+        <h4>Compra 100% segura</h4>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🚚</span>
+        <h4>Entrega rápida e segura</h4>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">❤️</span>
+        <h4>Atendimento com carinho</h4>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" id="acessorios">
+      <h3>Categorias</h3>
+      <div class="category-grid">
+        <a href="#" class="category-item">
+          <div class="category-icon">📱</div>
+          <p>Acessórios</p>
+        </a>
+        <a href="#" class="category-item">
+          <div class="category-icon">📦</div>
+          <p>Capinhas</p>
+        </a>
+        <a href="#" class="category-item">
+          <div class="category-icon">🎬</div>
+          <p>Películas</p>
+        </a>
+        <a href="#" class="category-item">
+          <div class="category-icon">🍎</div>
+          <p>iPhone</p>
+        </a>
+        <a href="#" class="category-item">
+          <div class="category-icon">🔴</div>
+          <p>Xiaomi</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Destaques -->
+    <section class="highlights" id="produtos">
+      <h3>Destaques</h3>
+      <div class="products-grid" id="produtos-container">
+        <!-- Produtos serão carregados aqui via JavaScript -->
+      </div>
+    </section>
+
+    <!-- Quem Somos -->
+    <section class="about" id="quem-somos">
+      <h3>Quem somos</h3>
+      <div class="about-content">
+        <img src="assets/logo.png" alt="Mimo Store" class="about-logo">
+        <div class="about-text">
+          <p>A <strong>Mimo Store</strong> nasceu com o propósito de levar acessórios com carinho para você.</p>
+          <p>Comprometimento em garantir a melhor experiência de compra com atendimento rápido e confiável.</p>
+          <ul>
+            <li>iPhone e Xiaomi</li>
+            <li>Acessórios com carinho</li>
+            <li>Qualidade e confiança</li>
+            <li>Entrega rápida e segura</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" id="contato">
+    <div class="footer-content">
+      <p>❤️ ACESSÓRIOS COM CARINHO, PARA VOCÊ.</p>
+      <p>💬 65 99648-0119 | 📸 @mimo.store.65 | 📍 CUIABÁ - MT</p>
+      <p>❤️ SEU ESTILO, SUA TECNOLOGIA, SEU MIMO!</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
